@@ -8,11 +8,18 @@ module RunB
     # USER: return the history of user's runs, including run day, length, pace, etc
 
     def initialize
+      @users = {}
+
+      @posts = {}
+
+      @circles = {}
+
+      @commitments = {}
 
     end
 
 # USER METHODS
-    def create_user(name, password, age)
+    def create_user(username, password, age)
     end
 
     def get_user(user_id)
@@ -29,7 +36,7 @@ module RunB
 
 #POST METHODS
 
-  def create_post(name, time, location)
+  def create_post(creator_id, time, location)
 
   end
 
