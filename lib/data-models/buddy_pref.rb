@@ -1,6 +1,6 @@
 module RunB
   class BuddyPref
     # buddy preferences should have
-    # age, gender
+    # id, age, gender
   end
 end
