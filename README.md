@@ -1,4 +1,4 @@
-City-Power
+Running Buddy
 ==========
 
-Govt Accountability App
+Group exercise app
