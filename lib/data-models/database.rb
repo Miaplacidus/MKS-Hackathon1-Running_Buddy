@@ -24,28 +24,73 @@ module RunB
 
 #POST METHODS
 
-  def create_post(name, time, location)
+    def create_post(name, time, location)
+    end
 
-  end
+    def get_post(post_id)
+    end
 
-  def get_post(post_id)
-  end
+    def ls_post
+    end
 
-  def ls_post
-  end
+    def update_post(post_id, data_hash)
+    end
 
-  def update_post(post_id, data_hash)
-
-  end
-
-  def delete_post(post_id)
-
-  end
+    def delete_post(post_id)
+    end
 
 #WALLET METHODS
 
-  def create_wallet()
+    def create_wallet()
+    end
 
+    def get_wallet(wallet_id)
+    end
+
+    def get_wallet_by_user(user_id)
+    end
+
+    def update_wallet(wallet_id, data_hash)
+    end
+
+#CIRCLE
+
+    def create_circle(name)
+    end
+
+    def get_circle(circle_id)
+    end
+
+    def update_circle(circle_id, data_hash)
+    end
+
+    def delete_circle(circle_id)
+    end
+
+#COMMITMENT
+
+    def create_commitment(user_id, amount, post_id)
+    end
+
+    def get_commitment(comm_id)
+    end
+
+    def get_comm_by_usr(user_id)
+    end
+
+    def update_comm(comm_id, data_hash)
+    end
+
+#BUDDY PREFERENCES
+
+    def create_buddy_pref(user_id, age, gender)
+    end
+
+    def get_buddy_pref(bf_id)
+    end
+
+    def update_buddy_pref(bf_id, data_hash)
+    end
 
   end
 end

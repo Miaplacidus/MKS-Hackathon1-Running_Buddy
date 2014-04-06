@@ -1,6 +1,11 @@
 module RunB
   class BuddyPref
-    # buddy preferences should have
-    # id, age, gender
+
+    def initialize(user_id, age, gender)
+      @user_id = user_id
+      @age_pref = age
+      @gen_pref = gender
+    end
+
   end
 end
