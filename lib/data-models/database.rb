@@ -88,6 +88,12 @@ module RunB
     end
 
     def get_post(post_id)
+      rows = @sqlite.execute("SELECT * FROM posts WHERE id = ?", post_id)
+      data = rows.first
+      # Create a convenient Project object based on the data given to us by SQLite
+      post = RunB::Post.new(data[1], data[2], data[3], data[4], data[5])
+      post.id = data[0]
+      post
     end
 
     def ls_post
@@ -101,10 +107,12 @@ module RunB
     end
 
     def update_post(post_id, data_hash)
+
     end
 
     def delete_post(post_id)
     end
+
 
 #WALLET METHODS
 
@@ -116,12 +124,25 @@ module RunB
     end
 
     def get_wallet(wallet_id)
+      rows = @sqlite.execute("SELECT * FROM wallets WHERE id = ?", wallet_id)
+      data = rows.first
+      # Create a convenient Project object based on the data given to us by SQLite
+      wallet = RunB::Wallet.new(data[1], data[2])
+      wallet.id = data[0]
+      wallet
     end
 
     def get_wallet_by_user(user_id)
+      rows = @sqlite.execute("SELECT * FROM wallets WHERE user_id = ?", user_id)
+      data = rows.first
+      # Create a convenient Project object based on the data given to us by SQLite
+      wallet = RunB::Wallet.new(data[1], data[2]])
+      wallet.id = data[0]
+      wallet
     end
 
     def update_wallet(wallet_id, data_hash)
+
     end
 
 
@@ -134,6 +155,12 @@ module RunB
     end
 
     def get_circle(circle_id)
+      rows = @sqlite.execute("SELECT * FROM circles WHERE id = ?", circle_id)
+      data = rows.first
+      # Create a convenient Project object based on the data given to us by SQLite
+      circle = RunB::Circle.new(data[1])
+      circle.id = data[0]
+      circle
     end
 
     def ls_circle
@@ -162,13 +189,22 @@ module RunB
     end
 
     def get_commitment(comm_id)
+      rows = @sqlite.execute("SELECT * FROM commitments WHERE id = ?", comm_id)
+      data = rows.first
+      # Create a convenient Project object based on the data given to us by SQLite
+      commit = RunB::Commitment.new(data[1], data[2], data[3])
+      commit.id = data[0]
+      commit
     end
 
     def ls_usr_commitment(user_id)
+      commit_list = @sqlite.execute("SELECT * FROM commitments WHERE user_id = ?", user_id)
 
-    end
-
-    def get_comm_by_usr(user_id)
+      commit_list.map do |row|
+        commit = RunB::Post.new(row[1], row[2], row[3])
+        commit.id = row[0]
+        commit
+      end
     end
 
     def update_comm(comm_id, data_hash)
@@ -184,6 +220,12 @@ module RunB
     end
 
     def get_buddy_pref(bf_id)
+      rows = @sqlite.execute("SELECT * FROM commitments WHERE id = ?", comm_id)
+      data = rows.first
+      # Create a convenient Project object based on the data given to us by SQLite
+      commit = RunB::Commitment.new(data[1], data[2], data[3])
+      commit.id = data[0]
+      commit
     end
 
     def update_buddy_pref(bf_id, data_hash)

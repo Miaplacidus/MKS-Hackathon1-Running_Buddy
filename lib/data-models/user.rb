@@ -17,6 +17,7 @@ module RunB
       @id = @@num_users
       buddy_pref = BuddyPref.new(buddy_age, buddy_gender)
       @budp_id = buddy_pref.id
+      @wallet_id = nil
     end
 
   end
