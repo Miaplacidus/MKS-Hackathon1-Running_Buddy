@@ -30,13 +30,20 @@ module RunB
 
 # USER METHODS
     def create_user(username, password, age, email, level, buddy_age, buddy_gender)
-        new_user = User.new(username, password, age, email, level, buddy_age, buddy_gender)
-        @sqlite.execute("INSERT INTO users (name, password, age, email, level, buddy_age, buddy_gender) VALUES (?);", name, password, age, email, level, buddy_age, buddy_gender)
-        new_user.id - @sqlite.execute("SELECT last_insert_rowid()")[0][0]
-        new_user
+      new_user = User.new(username, password, age, email, level, buddy_age, buddy_gender)
+      bpref = self.create_buddy_pref(buddy_age, buddy_gender)
+      @sqlite.execute("INSERT INTO users (name, password, age, email, level, bpref_id) VALUES (?);", name, password, age, email, level, bpref.id)
+      new_user.id - @sqlite.execute("SELECT last_insert_rowid()")[0][0]
+      new_user
     end
 
-    def get_user_id(user_id)
+    def get_user(user_id)
+      rows = @sqlite.execute("SELECT * FROM users WHERE id = ?", user_id)
+      data = rows.first
+      # Create a convenient Project object based on the data given to us by SQLite
+      user = RunB::User.new(data[1], data[2], data[3], data[4], data[5])
+      user.id = data[0]
+      user
     end
 
     def ls_users
@@ -59,10 +66,10 @@ module RunB
 
 #POST METHODS
     def create_post(creator_id, time, location, pace, min_commit)
-        new_post = RunB::Post.new(creator_id, time, location, pace, min_commit)
-        @sqlite.execute("INSERT INTO posts (creator_id, time, location, pace, min_commit) VALUES (?);", creator_id, time, location, pace, min_commit)
-        new_post.id = @sqlite.execute("SELECT last_insert_rowid()")[0][0]
-        new_post
+      new_post = RunB::Post.new(creator_id, time, location, pace, min_commit)
+      @sqlite.execute("INSERT INTO posts (creator_id, time, location, pace, min_commit) VALUES (?);", creator_id, time, location, pace, min_commit)
+      new_post.id = @sqlite.execute("SELECT last_insert_rowid()")[0][0]
+      new_post
     end
 
     def get_post(post_id)
@@ -154,9 +161,9 @@ module RunB
 
 
 #BUDDY PREFERENCES
-    def create_buddy_pref(user_id, age, gender)
-        new_bpref = RunB::BuddyPref.new(user_id, age, gender)
-        @sqlite.execute("INSERT INTO buddyprefs (user_id, age, gender) VALUES (?);", user_id, age, gender)
+    def create_buddy_pref(age, gender)
+        new_bpref = RunB::BuddyPref.new(age, gender)
+        @sqlite.execute("INSERT INTO buddyprefs (user_id, age, gender) VALUES (?);", age, gender)
         new_bpref.id = @sqlite.execute("SELECT last_insert_rowid()")[0][0]
         new_bpref
     end
