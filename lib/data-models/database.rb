@@ -57,7 +57,10 @@ module RunB
 
 
     def get_user_from_username(username)
-        user = @users.values.find {|x| x.name ==username}
+        rows = @sqlite.execute("SELECT * users where name = ?", username)
+        data = rows.first
+        user = RunB::User.new(data[1], data[2], data[3], data[4], data[5])
+        user.id = data[0]
         user
     end
 
