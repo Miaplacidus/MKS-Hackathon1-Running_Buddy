@@ -17,49 +17,50 @@ sqlite.execute %q{
  CREATE TABLE users (
    id          INTEGER  PRIMARY KEY,
    name        TEXT     NOT NULL,
-   password    INT      NOT NULL,
-   age         INT      NOT NULL,
+   password    INTEGER  NOT NULL,
+   age         INTEGER  NOT NULL,
    email       TEXT     NOT NULL,
-   level       INT      NOT NULL,
-   rating      INT      NOT NULL,
-   budp_id     INT      NOT NULL,
+   level       INTEGER  NOT NULL,
+   rating      INTEGER  NOT NULL,
+   budp_id     INTEGER  NOT NULL,
  );
 }
 sqlite.execute %q{
  CREATE TABLE sessions(
    id          INTEGER   PRIMARY KEY,
-   user_id     INT       NOT NULL,
+   user_id     INTEGER   NOT NULL,
    FOREIGN KEY(user_id) REFERENCES users(id),
  );
 }
 sqlite.execute %q{
  CREATE TABLE  circles(
    id          INTEGER   PRIMARY KEY,
-   id          INT       NOT NULL,
+   id          INTEGER   NOT NULL,
    name        TEXT      NOT NULL,
  );
 }
 sqlite.execute %q{
  CREATE TABLE posts(
    id          INTEGER   PRIMARY KEY,
-   id          INT       NOT NULL,
-   creator_id  INT       NOT NULL,
-   time        INT       NOT NULL,
+   id          INTEGER   NOT NULL,
+   creator_id  INTEGER   NOT NULL,
+   time        INTEGER   NOT NULL,
    location    TEXT      NOT NULL,
-   pace        INT       NOT NULL,
-   complete    TEXT      NOT NULL,
-   min_amt     INT       NOT NULL,
+   pace        INTEGER   NOT NULL,
+   complete    BOOLEAN      NOT NULL,
+   min_amt     INTEGER   NOT NULL,
    FOREIGN KEY(creator_id) REFERENCES users(id),
  );
 }
 sqlite.execute %q{
  CREATE TABLE  commitments(
    id          INTEGER   PRIMARY KEY,
-   user_id     INT       NOT NULL,
-   fulfilled   TEXT      NOT NULL,
-   amount      INT       NOT NULL,
-   id          INT       NOT NULL,
+   user_id     INTEGER   NOT NULL,
+   fulfilled   BOOLEAN      NOT NULL,
+   amount      INTEGER   NOT NULL,
+   post_id          INTEGER   NOT NULL,
    FOREIGN KEY(user_id) REFERENCES users(id)
+   FOREIGN KEY(post_id) REFERENCES posts(id)
  );
 }
 
