@@ -10,6 +10,7 @@ module RunB
     def initialize
       @users = {}
 
+
       @posts = {}
 
       @circles = {}
@@ -24,9 +25,11 @@ module RunB
 
 # USER METHODS
     def create_user(username, password, age)
+        new_user = User.new()
     end
 
     def get_user(user_id)
+
     end
 
     def get_usr_hist(user_id)
