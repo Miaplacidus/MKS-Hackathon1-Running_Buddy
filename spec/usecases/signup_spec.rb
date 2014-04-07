@@ -11,12 +11,12 @@ describe 'SignUp' do
     expect(result.error?).to eq(true)
     expect(result.error).to eq(:username_taken)
   end
-  it "errors, if password length is less than 5 characters" do
+  xit "errors, if password length is less than 5 characters" do
     result = subject.run(:username => "Speedy_pants", :pw =>"123")
     expect(result.error?).to eq(true)
     expect(result.error).to eq(:weak_password)
   end
-  it "passes, if username and password is both acceptable and user inputed age" do
+  xit "passes, if username and password is both acceptable and user inputed age" do
     result = subject.run(:username=>"Speedy_pants", :pw =>"hello123", :age=> "24")
     expect(result.success?).to eq(true)
   end
