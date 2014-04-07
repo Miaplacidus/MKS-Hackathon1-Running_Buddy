@@ -10,6 +10,8 @@ module RunB
     @app_db_name = db_name
   end
 
+
+  attr_accessor :users, :posts, :circles, :commitments, :wallets, :buddy_prefs, :sessions
   class Database
     # USER: return the history of user's runs, including run day, length, pace, etc
 
@@ -23,8 +25,7 @@ module RunB
       @all_commits = {}
       @all_wallets = {}
       @all_bprefs = {}
-      @session = {}
-
+      @sessions = {}
     end
 
 # USER METHODS
@@ -36,7 +37,8 @@ module RunB
     end
 
     def get_user_from_username(username)
-        @users
+        user = @users.values.find {|x| x.name ==username}
+        user
     end
 
     def get_usr_hist(user_id)
@@ -131,7 +133,7 @@ module RunB
 #QUERY METHODS
     def create_session(user_id)
         new_session = RunB::Session.new(user_id)
-        @session[new_session.id] = new_session
+        @sessions[new_session.id] = new_session
         new_session
     end
 
