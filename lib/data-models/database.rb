@@ -65,6 +65,12 @@ module RunB
     end
 
     def get_usr_hist(user_id)
+        run_list = @sqlite.execute("SELECT * commitments where user_id = ?", user_id)
+
+        run_list.map do |row|
+            post = self.get_post(row[4])
+            post
+        end
     end
 
     def update_user(user_id, data_hash)
