@@ -35,14 +35,16 @@ sqlite.execute %q{
 sqlite.execute %q{
  CREATE TABLE  circles(
    id          INTEGER   PRIMARY KEY,
-   id          INTEGER   NOT NULL,
    name        TEXT      NOT NULL,
+   creator_id  INTEGER   NOT NULL,
+   joiner_id   INTEGER   NOT NULL,
+   FOREIGN KEY(joiner_id) REFERENCES users(id),
+   FOREIGN KEY(creator_id) REFERENCES users(id)
  );
 }
 sqlite.execute %q{
  CREATE TABLE posts(
    id          INTEGER   PRIMARY KEY,
-   id          INTEGER   NOT NULL,
    creator_id  INTEGER   NOT NULL,
    time        INTEGER   NOT NULL,
    location    TEXT      NOT NULL,
