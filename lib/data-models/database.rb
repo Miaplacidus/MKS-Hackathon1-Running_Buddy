@@ -108,5 +108,6 @@ module RunB
     def update_buddy_pref(bf_id, data_hash)
     end
 
+#QUERY METHODS
   end
 end
