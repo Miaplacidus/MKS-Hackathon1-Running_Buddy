@@ -25,7 +25,8 @@ module RunB
       buddy_gender = inputs[:buddy_gender]
       return failure(:missing_buddy_gender_preference) if buddy_gender == nil
 
-      return success(:user => user)
+      session = RunB.db.create_session(user.id)
+      return success(:session_id => session.id, :user => user)
 
     end
 

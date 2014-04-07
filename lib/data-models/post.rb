@@ -5,17 +5,28 @@ module RunB
     attr_reader :id, :creator_id
 
     @@num_posts = 0
-    def initialize(creator_id, time, location, pace, min_commitment)
-      @creator_id = creator_id
-      @time = time
-      @location = location
-      @pace = pace
+    def initialize(attrs={})
+      @creator_id = attrs[:creator_id]
+      @time = attrs[:time]
+      @location = attrs[:location]
+      @pace = attrs[:pace]
       # status equals true when time = Time.now
-      @complete = false
-      @min_amt = min_commitment
+      if attrs[:complete]
+        @complete = attrs[:complete]
+      else
+        @complete = false
+      end
+      @min_amt = attrs[:min_amt]
       @@num_posts +=1
       @id = @@num_posts
     end
 
   end
 end
+
+# PACE are like so:
+# 0 - Military (6 min/mi)
+# 1 - Advanced (7-8 min/mi)
+# 2 - Intermediate (9-10 min/mi)
+# 3 - Beginner (11-12 min/mi)
+# 4 - Speedwalk (13+ min/mi)

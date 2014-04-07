@@ -6,11 +6,11 @@ module RunB
     attr_accessor :name, :email, :age, :budp_id, :level, :rating, :wallet_id
 
     @@num_users = 0
-    def initialize(name, password, age, email, level, buddy_age, buddy_gender)
-      @name = name
-      @password = password
-      @age = age
-      @email = email
+    def initialize(attrs={})
+      @name = attrs[:name]
+      @password = attrs[:password]
+      @age = attrs[:age]
+      @email = attrs[:email]
       @level = 3
       @rating = 3
       @@num_users += 1
