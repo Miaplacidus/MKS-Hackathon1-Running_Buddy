@@ -54,7 +54,7 @@ module RunB
 
 #WALLET METHODS
 
-    def create_wallet()
+    def create_wallet(user_id, amount)
     end
 
     def get_wallet(wallet_id)
