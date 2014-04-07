@@ -47,8 +47,14 @@ module RunB
     end
 
     def ls_users
+      user_list = @sqlite.execute("SELECT * FROM users")
 
+      user_list.map do |row|
+        user = RunB::Post.new(row[1], row[2], row[3], row[4], row[5])
+        user.id = row[0]
+        user
     end
+
 
     def get_user_from_username(username)
         user = @users.values.find {|x| x.name ==username}
