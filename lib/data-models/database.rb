@@ -34,6 +34,8 @@ module RunB
         @sqlite.execute("INSERT INTO users (name, password, age, email, level, buddy_age, buddy_gender) VALUES (?);", name, password, age, email, level, buddy_age, buddy_gender)
 
         new_user
+
+
     end
 
     def get_user_id(user_id)
