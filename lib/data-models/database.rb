@@ -16,6 +16,9 @@ module RunB
 
       @commitments = {}
 
+      @wallets = {}
+
+      @buddy_prefs = {}
     end
 
 # USER METHODS
@@ -35,8 +38,6 @@ module RunB
     end
 
 #POST METHODS
-
-
     def create_post(creator_id, time, location)
     end
 
@@ -66,8 +67,8 @@ module RunB
     def update_wallet(wallet_id, data_hash)
     end
 
-#CIRCLE
 
+#CIRCLE
     def create_circle(name)
     end
 
@@ -80,8 +81,8 @@ module RunB
     def delete_circle(circle_id)
     end
 
-#COMMITMENT
 
+#COMMITMENT
     def create_commitment(user_id, amount, post_id)
     end
 
@@ -94,8 +95,8 @@ module RunB
     def update_comm(comm_id, data_hash)
     end
 
-#BUDDY PREFERENCES
 
+#BUDDY PREFERENCES
     def create_buddy_pref(user_id, age, gender)
     end
 
@@ -105,5 +106,6 @@ module RunB
     def update_buddy_pref(bf_id, data_hash)
     end
 
+#QUERY METHODS
   end
 end
