@@ -1,14 +1,13 @@
 module RunB
   class Circle
-    # Circle should have properties:
-    # id
-    # user_ids
-    # group name
+    # NOTE JOIN TABLE: Lists all users belonging to a circle
+    attr_reader :name
+
   @@num_circles = 0
-    def initialize(name, data_hash)
+    def initialize(name)
       @@num_circles+=1
       @id = @@num_circles
-      @
+      @name = name
     end
 
   end
