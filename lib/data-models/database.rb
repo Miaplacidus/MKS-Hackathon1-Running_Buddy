@@ -37,6 +37,7 @@ module RunB
     end
 
     def get_user_id(user_id)
+
     end
 
     def ls_users
