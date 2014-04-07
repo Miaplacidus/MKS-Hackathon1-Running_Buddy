@@ -32,13 +32,15 @@ module RunB
     def create_user(username, password, age, email, level, buddy_age, buddy_gender)
         new_user = User.new(username, password, age, email, level, buddy_age, buddy_gender)
         @sqlite.execute("INSERT INTO users (name, password, age, email, level, buddy_age, buddy_gender) VALUES (?);", name, password, age, email, level, buddy_age, buddy_gender)
-
+        new_user.id - @sqlite.execute("SELECT last_insert_rowid()")[0][0]
         new_user
-
-
     end
 
     def get_user_id(user_id)
+    end
+
+    def ls_users
+
     end
 
     def get_user_from_username(username)
@@ -84,7 +86,11 @@ module RunB
 
 #WALLET METHODS
 
-    def create_wallet(user_id, amount)
+    def create_wallet(user_id, init_amt)
+        new_wallet = RunB::Wallet.new(user_id, init_amt)
+        @sqlite.execute("INSERT INTO wallets (user_id, balance) VALUES (?);", user_id, init_amt)
+        new_wallet.id = @sqlite.execute("SELECT last_insert_rowid()")[0][0]
+        new_wallet
     end
 
     def get_wallet(wallet_id)
@@ -99,6 +105,10 @@ module RunB
 
 #CIRCLE
     def create_circle(name)
+        new_circle = RunB::Circle.new(name)
+        @sqlite.execute("INSERT INTO circles (name) VALUES (?);", name)
+        new_circle.id = @sqlite.execute("SELECT last_insert_rowid()")[0][0]
+        new_circle
     end
 
     def get_circle(circle_id)
@@ -123,6 +133,10 @@ module RunB
 
 #COMMITMENT
     def create_commitment(user_id, amount, post_id)
+        new_commit = RunB::Commitment.new(user_id, amount, post_id)
+        @sqlite.execute("INSERT INTO commitments (user_id, amount, post_id) VALUES (?);", user_id, amount, post_id)
+        new_commit.id = @sqlite.execute("SELECT last_insert_rowid()")[0][0]
+        new_commit
     end
 
     def get_commitment(comm_id)
@@ -141,6 +155,10 @@ module RunB
 
 #BUDDY PREFERENCES
     def create_buddy_pref(user_id, age, gender)
+        new_bpref = RunB::BuddyPref.new(user_id, age, gender)
+        @sqlite.execute("INSERT INTO buddyprefs (user_id, age, gender) VALUES (?);", user_id, age, gender)
+        new_bpref.id = @sqlite.execute("SELECT last_insert_rowid()")[0][0]
+        new_bpref
     end
 
     def get_buddy_pref(bf_id)
@@ -152,7 +170,8 @@ module RunB
 #QUERY METHODS
     def create_session(user_id)
         new_session = RunB::Session.new(user_id)
-        @sessions[new_session.id] = new_session
+        @sqlite.execute("INSERT INTO sessions (user_id) VALUES (?);", user_id)
+        new_session.id = @sqlite.execute("SELECT last_insert_rowid()")[0][0]
         new_session
     end
 

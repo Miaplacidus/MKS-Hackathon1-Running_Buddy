@@ -2,8 +2,8 @@ module RunB
   class User
     # Additionally, user has property history, a list of
     # all of their completed runs
-    attr_reader :wallet_id, :id
-    attr_accessor :name, :email, :age, :budp_id, :level, :rating
+    attr_reader :id
+    attr_accessor :name, :email, :age, :budp_id, :level, :rating, :wallet_id
 
     @@num_users = 0
     def initialize(name, password, age, email, level, buddy_age, buddy_gender)
