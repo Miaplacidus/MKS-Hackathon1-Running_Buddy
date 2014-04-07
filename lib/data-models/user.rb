@@ -28,3 +28,12 @@ end
 # 2 - Intermediate (9-10 min/mi)
 # 3 - Beginner (11-12 min/mi)
 # 4 - Speedwalk (13+ min/mi)
+
+# Age
+# 0 - Age 16-18
+# 1 - Age 19-21
+# 2 - Age 22-29
+# 3 - Age 30-39
+# 4 - Age 40-49
+# 5 - Age 50+
+# 6 - no preference

@@ -29,8 +29,13 @@ module RunB
     end
 
 # USER METHODS
-    def create_user(username, password, age)
-        new_user = User.new()
+    def create_user(username, password, age, email, level, buddy_age, buddy_gender)
+        new_user = User.new(username, password, age, email, level, buddy_age, buddy_gender)
+        @sqlite.execute("INSERT INTO users (name, password, age, email, level, buddy_age, buddy_gender) VALUES (?);", name, password, age, email, level, buddy_age, buddy_gender)
+
+        new_user
+
+
     end
 
     def get_user_id(user_id)
@@ -51,20 +56,23 @@ module RunB
     end
 
 #POST METHODS
-    def create_post(creator_id, time, location, pace, min_commitment)
-        new_post = RunB::Post.new()
+    def create_post(creator_id, time, location, pace, min_commit)
+        new_post = RunB::Post.new(creator_id, time, location, pace, min_commit)
+        @sqlite.execute("INSERT INTO posts (creator_id, time, location, pace, min_commit) VALUES (?);", creator_id, time, location, pace, min_commit)
+        new_post.id = @sqlite.execute("SELECT last_insert_rowid()")[0][0]
+        new_post
     end
 
     def get_post(post_id)
     end
 
     def ls_post
-        result = @sqlite.execute("SELECT * FROM posts")
+        post_list = @sqlite.execute("SELECT * FROM posts")
 
-        result.map do |row|
+        post_list.map do |row|
             post = RunB::Post.new(row[1], row[2], row[3], row[4], row[5])
             post.id = row[0]
-            proj
+            post
         end
     end
 
@@ -97,6 +105,13 @@ module RunB
     end
 
     def ls_circle
+        circle_list = @sqlite.execute("SELECT * FROM circles")
+
+        circle_list.map do |row|
+            circle = RunB::Circle.new(row[1])
+            circle.id = row[0]
+            circle
+        end
     end
 
     def update_circle(circle_id, data_hash)
@@ -111,6 +126,10 @@ module RunB
     end
 
     def get_commitment(comm_id)
+    end
+
+    def ls_usr_commitment(user_id)
+
     end
 
     def get_comm_by_usr(user_id)
