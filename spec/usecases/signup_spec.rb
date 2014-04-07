@@ -16,5 +16,8 @@ describe 'SignUp' do
     expect(result.error?).to eq(true)
     expect(result.error).to eq(:weak_password)
   end
-
+  it "passes, if username and password is both acceptable and user inputed age" do
+    result = subject.run(:username=>"Speedy_pants", :pw =>"hello123", :age=> "24")
+    expect(result.success?).to eq(true)
+  end
 end
