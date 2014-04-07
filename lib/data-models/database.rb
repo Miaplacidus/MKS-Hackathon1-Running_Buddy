@@ -22,7 +22,6 @@ module RunB
       @buddy_prefs = {}
     end
 
-
 # USER METHODS
     def create_user(username, password, age)
         new_user = User.new()
@@ -41,7 +40,6 @@ module RunB
     def delete_user(user_id)
     end
 
-
 #POST METHODS
     def create_post(creator_id, time, location)
     end
@@ -58,9 +56,9 @@ module RunB
     def delete_post(post_id)
     end
 
-
 #WALLET METHODS
-    def create_wallet()
+
+    def create_wallet(user_id, amount)
     end
 
     def get_wallet(wallet_id)
