@@ -23,6 +23,8 @@ module RunB
       @all_commits = {}
       @all_wallets = {}
       @all_bprefs = {}
+      @session = {}
+
     end
 
 # USER METHODS
@@ -30,7 +32,11 @@ module RunB
         new_user = User.new()
     end
 
-    def get_user(user_id)
+    def get_user_id(user_id)
+    end
+
+    def get_user_from_username(username)
+        @users
     end
 
     def get_usr_hist(user_id)
@@ -123,5 +129,11 @@ module RunB
     end
 
 #QUERY METHODS
+    def create_session(user_id)
+        new_session = RunB::Session.new(user_id)
+        @session[new_session.id] = new_session
+        new_session
+    end
+
   end
 end

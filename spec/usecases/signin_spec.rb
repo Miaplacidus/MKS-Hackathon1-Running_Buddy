@@ -5,7 +5,7 @@ describe 'SignIn' do
     @db = RunB.db
   end
 
-  it "errors, if username doesn't exist " do
+  it "errors, if username doesn't exist" do
     result = RunB::SignIn.run(:username => "Tom", :pw => "1234")
     expect(result.error).to eq(:username_missing)
     expect(result.error?).to eq(true)
