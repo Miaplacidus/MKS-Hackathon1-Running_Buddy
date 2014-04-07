@@ -29,8 +29,12 @@ module RunB
     end
 
 # USER METHODS
-    def create_user(username, password, age)
-        new_user = User.new()
+    def create_user(username, password, age, email, level, buddy_age, buddy_gender)
+
+    end
+
+    def check_name(username)
+
     end
 
     def get_user_id(user_id)
