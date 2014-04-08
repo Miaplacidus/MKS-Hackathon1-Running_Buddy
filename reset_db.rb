@@ -32,7 +32,7 @@ sqlite.execute %q{
  CREATE TABLE sessions(
    id          INTEGER   PRIMARY KEY AUTOINCREMENT,
    user_id     INTEGER   NOT NULL,
-   FOREIGN KEY(user_id) REFERENCES users(id),
+   FOREIGN KEY(user_id) REFERENCES users(id)
  );
 }
 sqlite.execute %q{
@@ -54,7 +54,9 @@ sqlite.execute %q{
    pace        INTEGER   NOT NULL,
    min_amt     INTEGER   NOT NULL,
    complete    BOOLEAN      NOT NULL,
+   budp_id     INTEGER
    FOREIGN KEY(creator_id) REFERENCES users(id),
+   FOREIGN KEY(budp_id) REFERENCES buddyprefs(id)
  );
 }
 sqlite.execute %q{
@@ -75,9 +77,26 @@ sqlite.execute %q{
    group_id    INTEGER   NOT NULL,
    FOREIGN KEY(user_id) REFERENCES users(id),
    FOREIGN KEY(group_id)REFERENCES circle(id)
-
    );
 }
+sqlite.execute %q{
+ CREATE TABLE wallets(
+   id          INTEGER   PRIMARY KEY AUTOINCREMENT,
+   user_id  INTEGER   NOT NULL,
+   balance        INTEGER   NOT NULL,
+   FOREIGN KEY(user_id) REFERENCES users(id)
+ );
+}
+sqlite.execute %q{
+ CREATE TABLE buddyprefs(
+   id          INTEGER   PRIMARY KEY AUTOINCREMENT,
+   age         INTEGER   NOT NULL,
+   gender      INTEGER   NOT NULL,
+   post_id     INTEGER
+   FOREIGN KEY(post_id) REFERENCES posts(id)
+ );
+}
+
 
 puts "Database Schema:\n\n"
 puts `echo .schema | sqlite3 #{db_name}`

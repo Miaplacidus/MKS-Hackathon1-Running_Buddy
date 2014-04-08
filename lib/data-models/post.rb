@@ -1,8 +1,8 @@
 module RunB
   class Post
 
-    attr_accessor :time, :location, :pace, :complete, :min_amt, :budp_id
-    attr_reader :id, :creator_id
+    attr_accessor :time, :location, :pace, :complete, :min_amt, :budp_id, :id
+    attr_reader :creator_id
 
     @@num_posts = 0
     def initialize(attrs={})
@@ -10,12 +10,8 @@ module RunB
       @time = attrs[:time]
       @location = attrs[:location]
       @pace = attrs[:pace]
-      # status equals true when time = Time.now
-      if attrs[:complete]
-        @complete = attrs[:complete]
-      else
-        @complete = false
-      end
+      # complete equals true when time = Time.now
+      @complete = false
       @min_amt = attrs[:min_amt]
       @@num_posts +=1
       @id = @@num_posts
