@@ -4,7 +4,7 @@ describe 'Database' do
   before do
     RunB.db_name = "RunningBuddy"
     @db = RunB.db
-    # user1 = @db.create_user("John Doe", "123456", 25, "john@doe.com", 2, 20, "male")
+    user1 = @db.create_user({name:"John Doe", password: "123456", age: 25, email:"john@doe.com", level: 2, gender: "male")
     # user2 = @db.create_user("Jane Smith", "654321", 23, "jane@smith.com", 2, 22, "female")
     # user3 = @db.create_user("Bugs Bunny", "abcdef", 19, "bugs@bunny.com", 2, 25, "male")
   end
@@ -15,7 +15,7 @@ describe 'Database' do
       expect(new_user.name).to eq("Alice")
     end
 
-    xit 'can display users history of runs' do
+    it 'can display users history of runs' do
       @db.create_post(user1.id, "8am", "716 Congress Ave., Austin, TX")
       @db.update_post()
     end

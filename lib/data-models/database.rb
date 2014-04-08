@@ -21,7 +21,7 @@ module RunB
 # USER METHODS
     def create_user(data_hash)
       new_user = RunB::User.new(data_hash)
-      @sqlite.execute("INSERT INTO users (name, password, age, email, level) VALUES (?,?,?,?,?);", data_hash[:name], data_hash[:password], data_hash[:age], data_hash[:email], data_hash[:level])
+      @sqlite.execute("INSERT INTO users (name, password, age, email, level, gender) VALUES (?,?,?,?,?,?);", data_hash[:name], data_hash[:password], data_hash[:age], data_hash[:email], data_hash[:level], data_hash[:gender])
       new_user.id = @sqlite.execute("SELECT last_insert_rowid()")[0][0]
       new_user
     end
