@@ -46,7 +46,7 @@ module RunB
       user_list = @sqlite.execute("SELECT * FROM users")
 
       user_list.map do |row|
-        user = RunB::User.new({:username => row[1], :password => row[2], :age=> row[3], :email => row[4], row[5]})
+        user = RunB::User.new({:username => row[1], :password => row[2], :age=> row[3], :email => row[4], :level => row[5]})
         user.id = row[0]
         user
       end
