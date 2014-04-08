@@ -5,7 +5,7 @@ describe 'GetSMSReminders' do
     @db = RunB.db
   end
 
-  it "errors, " do
+  xit "errors, " do
 
     expect(result.error).to eq( )
     expect(result.error?).to eq(true)
