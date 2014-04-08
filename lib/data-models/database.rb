@@ -5,24 +5,17 @@ module RunB
   def self.db
     @__db_instance ||= Database.new(@app_db_name)
   end
+
   def self.db_name=(db_name)
     @app_db_name = db_name
   end
 
   class Database
-  attr_accessor :users, :posts, :circles, :commitments, :wallets, :buddy_prefs, :sessions
-    # USER: return the history of user's runs, including run day, length, pace, etc
+  # attr_accessor :users, :posts, :circles, :commitments, :wallets, :buddy_prefs, :sessions
 
     def initialize(db_name)
+      raise StandardError.new("Please set TM.db_name") if db_name.nil?
       @sqlite = SQLite3::Database.new(db_name)
-
-      @all_users = {}
-      @all_posts = {}
-      @all_circles = {}
-      @all_commits = {}
-      @all_wallets = {}
-      @all_bprefs = {}
-      @sessions = {}
     end
 
 # USER METHODS

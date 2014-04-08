@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe 'Database' do
   before do
-    @db = RunB.db("RunningBuddy")
+    RunB.db_name = "RunningBuddy"
+    @db = RunB.db
     user1 = @db.create_user("John Doe", "123456", 25, "john@doe.com", 2, 20, "male")
     user2 = @db.create_user("Jane Smith", "654321", 23, "jane@smith.com", 2, 22, "female")
     user3 = @db.create_user("Bugs Bunny", "abcdef", 19, "bugs@bunny.com", 2, 25, "male")
