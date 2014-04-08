@@ -6,7 +6,11 @@
   <script src="http://cdn.jotfor.ms/static/jotform.js?3.2.1272" type="text/javascript"></script>
   <script type="text/javascript">
      JotForm.init();
+     var mandrillApiKey = "<%= ENV['MANDRILL_APIKEY'] %>";
   </script>
+  <script type="text/javascript" src="https://mandrillapp.com/api/docs/js/mandrill.js"></script>
+  <script type="text/javascript" src="send-email.js"></script>
+
   <link href="http://cdn.jotfor.ms/static/formCss.css?3.2.1272" rel="stylesheet" type="text/css" />
   <link type="text/css" rel="stylesheet" href="http://cdn.jotfor.ms/css/styles/nova.css?3.2.1272" />
   <link type="text/css" media="print" rel="stylesheet" href="http://cdn.jotfor.ms/css/printForm.css?3.2.1272" />
@@ -103,7 +107,7 @@
     </div>
     <input type="hidden" id="simple_spc" name="simple_spc" value="40973685274971" />
     <script type="text/javascript">
-    document.getElementById("si" + "mple" + "_spc").value = "40973685274971-40973685274971";
+      document.getElementById("si" + "mple" + "_spc").value = "40973685274971-40973685274971";
     </script>
   </form>
 </body>
