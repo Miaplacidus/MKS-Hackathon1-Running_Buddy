@@ -9,6 +9,7 @@ sqlite.execute %q{DROP TABLE IF EXISTS sessions}
 sqlite.execute %q{DROP TABLE IF EXISTS circles}
 sqlite.execute %q{DROP TABLE IF EXISTS posts}
 sqlite.execute %q{DROP TABLE IF EXISTS commitments}
+sqlite.execute %q{DROP TABLE IF EXISTS group_memb}
 # ADD BUDDY PREFERENCES AND BUDDY PREF ID TO POST (REMOVE FROM USER), WALLET
 # GROUP MEMBERSHIP TABLE FOR CIRCLES
 
@@ -68,7 +69,16 @@ sqlite.execute %q{
    FOREIGN KEY(post_id) REFERENCES posts(id)
  );
 }
+sqlite.execute %q{
+ CREATE TABLE group_memb(
+   id          INTEGER   PRIMARY KEY AUTOINCREMENT,
+   user_id     INTEGER   NOT NULL,
+   group_id    INTEGER   NOT NULL,
+   FOREIGN KEY(user_id) REFERENCES users(id),
+   FOREIGN KEY(group_id)REFERENCES circle(id)
 
+   );
+}
 
 puts "Database Schema:\n\n"
 puts `echo .schema | sqlite3 #{db_name}`

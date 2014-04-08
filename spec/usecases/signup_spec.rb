@@ -6,7 +6,7 @@ describe RunB::SignUp do
     @userTest = @db.create_user("Speedo", "hello123", 2, "testing@test.com", 2, 3, "male")
   end
 
-  it "errors, if username is already taken" do
+  xit "errors, if username is already taken" do
     result = subject.run(:name => "Speedo")
     expect(result.error?).to eq(true)
     expect(result.error).to eq(:username_taken)

@@ -5,7 +5,7 @@ describe RunB::JoinCircle do
     @db = RunB.db
     @user = @db.create_user("Speedo", "hello123", 2, "testing@test.com", 2, 3, "male")
     @user2 = @db.create_user("Bella", "yeo67s", 3, "bell@test.com", 3, 2, "female")
-    @circle = @db.create_circle("Friends", @user.id, @user2.id)
+    @circle = @db.create_circle("Friends")
     @new_circle = @db.update_circle(@circle.id, "Friends", @user2.id)
   end
 
