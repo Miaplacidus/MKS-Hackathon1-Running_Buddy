@@ -1,28 +1,56 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Find a RunningBuddy in your city</title>
-    <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
-    <style type="text/css">
-      #map{
-        height: 300px;
-      }
-    </style>
+  <meta charset=utf-8 />
+  <title>Find a RunningBuddy in your city</title>
+
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+  <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
+
+  <style>
+    body{
+      /*margin:0;
+      padding:0;*/
+    }
+    #map{
+      height: 500px;
+      /*position:absolute;
+      top:0;
+      bottom:0;
+      width:100%;*/
+    }
+  </style>
   </head>
 
-  <body>
-    <h1>Find a RunningBuddy in your city</h1>
-    <h3>Here are the RunningBuddies near you:</h3>
-    <div id="map">Map will go here</div>
-    <script type="text/javascript">
-      var map = L.map('map').setView([51.505, -0.09], 13);
+<body>
+  <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.24.0/L.Control.Locate.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.24.0/L.Control.Locate.css' rel='stylesheet' />
+  <!--[if lt IE 9]>
+    <link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.21.0/L.Control.Locate.ie.css' rel='stylesheet' />
+  <![endif]-->
 
-      L.tileLayer('http://{s}.tile.cloudmade.com/API-key/997/256/{z}/{x}/{y}.png', {
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
-        maxZoom: 18
-      }).addTo(map);
-    </script>
-  </body>
+  <style type="text/css">
+      .leaflet-control-locate {
+          border: 1px solid rgba(0,0,0,0.4);
+      }
 
+      .leaflet-control-locate a {
+          background-color: #fff;
+          background-position: -3px, -2px;
+      }
+
+      .leaflet-control-locate.active a {
+          background-position: -33px -2px;
+      }
+  </style>
+
+  <h1>Find a RunningBuddy in your city</h1>
+  <h3>Here are the RunningBuddies near you:</h3>
+  <div id='map'></div>
+  <script>
+  var map = L.mapbox.map('map', 'sarmadbokhari.ho458c5h').setView([30.27, -97.74], 12);
+      L.control.locate().addTo(map);
+  </script>
+</body>
 </html>
