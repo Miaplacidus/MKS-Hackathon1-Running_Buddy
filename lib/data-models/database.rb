@@ -16,7 +16,6 @@ module RunB
     # USER: return the history of user's runs, including run day, length, pace, etc
 
     def initialize(db_name)
-
       @sqlite = SQLite3::Database.new(db_name)
 
       @all_users = {}
@@ -30,7 +29,7 @@ module RunB
 
 # USER METHODS
     def create_user(username, password, age, email, level, buddy_age, buddy_gender)
-      new_user = User.new(username, password, age, email, level, buddy_age, buddy_gender)
+      new_user = RunB::User.new(username, password, age, email, level, buddy_age, buddy_gender)
       bpref = self.create_buddy_pref(buddy_age, buddy_gender)
       @sqlite.execute("INSERT INTO users (name, password, age, email, level, bpref_id) VALUES (?);", name, password, age, email, level, bpref.id)
       new_user.id - @sqlite.execute("SELECT last_insert_rowid()")[0][0]
@@ -89,6 +88,7 @@ module RunB
         end
     end
 
+    # DELETE
     def delete_user(user_id)
     end
 
@@ -264,7 +264,7 @@ module RunB
     end
 
     def update_comm(comm_id, com_amt)
-
+       @sqlite.execute("UPDATE commitments SET amount = ? where id = ?", com_amt, comm_id)
     end
 
 
@@ -286,7 +286,12 @@ module RunB
     end
 
     def update_buddy_pref(bf_id, data_hash)
-
+      if data_hash[:age]
+          @sqlite.execute("UPDATE buddyprefs SET age = ? WHERE id = ?", data_hash[:age], bf_id)
+        end
+      if data_hash[:gender]
+        @sqlite.execute("UPDATE buddyprefs SET gender = ? WHERE id = ?", data_hash[:gender], bf_id)
+      end
     end
 
 #QUERY METHODS
