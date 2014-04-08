@@ -3,7 +3,7 @@ module RunB
     # Additionally, user has property history, a list of
     # all of their completed runs
     attr_reader :id
-    attr_accessor :name, :email, :age, :budp_id, :level, :rating, :wallet_id
+    attr_accessor :name, :email, :age, :level, :rating, :wallet_id
 
     @@num_users = 0
     def initialize(attrs={})
