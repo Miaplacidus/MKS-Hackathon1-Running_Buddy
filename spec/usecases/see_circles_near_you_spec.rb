@@ -1,12 +1,14 @@
 require 'spec_helper'
 
-describe 'SeeCirclesNearYou' do
+describe RunB::SeeCirclesNearYou do
   before do
     @db = RunB.db
+    @circle = @db.create_circle("Friends", @user.id, @user2.id)
+    @
   end
 
-  it "errors, " do
-
+  it "errors, if circle doesn't exist" do
+    result = subject.run(:circle_id=> )
     expect(result.error).to eq( )
     expect(result.error?).to eq(true)
   end
