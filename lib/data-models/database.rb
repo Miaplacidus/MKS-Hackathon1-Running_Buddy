@@ -99,9 +99,7 @@ module RunB
     def create_post(data_hash)
       new_post = RunB::Post.new(data_hash)
 
-      @sqlite.execute("INSERT INTO buddyprefs (age, gender) VALUES (?,?);", data_hash[:buddy_age], data_hash[:buddy_gender])
-      new_bpref.id = @sqlite.execute("SELECT last_insert_rowid()")[0][0]
-
+      new_pref = self.create_buddy_pref(data_hash)
       @sqlite.execute("INSERT INTO posts (creator_id, time, location, pace, min_amt, budp_id) VALUES (?,?,?,?,?,?);", data_hash[:creator_id], data_hash[:time], data_hash[:location], data_hash[:pace], data_hash[:min_amt], new_bpref.id)
       new_post.id = @sqlite.execute("SELECT last_insert_rowid()")[0][0]
       self.update_post({:post_id => new_post.id})
@@ -227,12 +225,12 @@ module RunB
  # CIRCLE MEMBERSHIPS
 
     def add_circle_member(circle_id, user_id)
-      @sqlite.execute("INSERT INTO circle_memb (user_id, circle_id) VALUES (?, ?)", user_id, circle_id)
+      @sqlite.execute("INSERT INTO circle_membs (user_id, circle_id) VALUES (?, ?)", user_id, circle_id)
       self.get_circle(circle_id)
     end
 
     def get_circle_members_by_cid(circle_id)
-      member_list = @sqlite.execute("SELECT * FROM circle_memb WHERE circle_id = ?", circle_id)
+      member_list = @sqlite.execute("SELECT * FROM circle_membs WHERE circle_id = ?", circle_id)
 
       member_list.map do |row|
             user = self.get_user(row[1])
@@ -241,7 +239,7 @@ module RunB
     end
 
     def get_circles_by_uid(user_id)
-      circle_list = @sqlite.execute("SELECT * FROM circle_memb WHERE user_id = ?", user_id)
+      circle_list = @sqlite.execute("SELECT * FROM circle_membs WHERE user_id = ?", user_id)
 
       circle_list.map do |row|
             circle = self.get_circle(row[2])
@@ -253,7 +251,7 @@ module RunB
 #COMMITMENT
     def create_commitment(user_id, amount, post_id)
         new_commit = RunB::Commitment.new(user_id, amount, post_id)
-        @sqlite.execute("INSERT INTO commitments (user_id, amount, post_id) VALUES (?);", user_id, amount, post_id)
+        @sqlite.execute("INSERT INTO commitments (user_id, amount, post_id) VALUES (?, ?, ?);", user_id, amount, post_id)
         new_commit.id = @sqlite.execute("SELECT last_insert_rowid()")[0][0]
         new_commit
     end
@@ -279,12 +277,13 @@ module RunB
 
     def update_comm(comm_id, comm_amt)
       @sqlite.execute("UPDATE commitments SET amount = ? where id = ?", comm_amt, comm_id)
+      self.get_commitment(comm_id)
     end
 
 #BUDDY PREFERENCES
     def create_buddy_pref(data_hash)
         new_bpref = RunB::BuddyPref.new(data_hash[:age], data_hash[:gender])
-        @sqlite.execute("INSERT INTO buddyprefs (age, gender) VALUES (?);", data_hash[:age], data_hash[:gender])
+        @sqlite.execute("INSERT INTO buddyprefs (age, gender) VALUES (?, ?);", data_hash[:age], data_hash[:gender])
         new_bpref.id = @sqlite.execute("SELECT last_insert_rowid()")[0][0]
         new_bpref
     end
@@ -323,8 +322,14 @@ module RunB
     end
 
     def clear_all_records
-      @sqlite.execute("DELETE FROM projects")
-      @sqlite.execute("DELETE FROM tasks")
+      @sqlite.execute("DELETE FROM buddyprefs")
+      @sqlite.execute("DELETE FROM circles")
+      @sqlite.execute("DELETE FROM commitments")
+      @sqlite.execute("DELETE FROM posts")
+      @sqlite.execute("DELETE FROM sessions")
+      @sqlite.execute("DELETE FROM users")
+      @sqlite.execute("DELETE FROM wallets")
+      @sqlite.execute("DELETE FROM circle_membs")
     end
 
   end

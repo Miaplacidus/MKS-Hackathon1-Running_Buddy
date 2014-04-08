@@ -68,7 +68,7 @@ sqlite.execute %q{
  );
 }
 sqlite.execute %q{
- CREATE TABLE circle_memb(
+ CREATE TABLE circle_membs(
    id          INTEGER   PRIMARY KEY AUTOINCREMENT,
    user_id     INTEGER   NOT NULL,
    circle_id    INTEGER   NOT NULL,

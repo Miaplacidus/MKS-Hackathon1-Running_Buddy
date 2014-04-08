@@ -3,8 +3,8 @@ module RunB
     # NOTE USE CASES: Check that com_amount >= post min_amount
     # NOTE USE CASES: User can only modify amount up to 12 hours
     # before a run
-    attr_reader :user_id
-    attr_accessor :amount, :id
+    attr_reader :user_id, :post_id
+    attr_accessor :amount, :id, :fulfilled
 
     def initialize(user_id, com_amount, post_id)
       @user_id = user_id
