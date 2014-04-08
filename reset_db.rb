@@ -36,11 +36,7 @@ sqlite.execute %q{
 }
 sqlite.execute %q{
  CREATE TABLE  circles(
-<<<<<<< HEAD
    id          INTEGER   PRIMARY KEY,
-=======
-   id          INTEGER   PRIMARY KEY AUTOINCREMENT,
->>>>>>> 7eb0826796847f2a9fbea2e08ecb6117e4550926
    name        TEXT      NOT NULL,
    creator_id  INTEGER   NOT NULL,
    joiner_id   INTEGER   NOT NULL,
@@ -50,11 +46,8 @@ sqlite.execute %q{
 }
 sqlite.execute %q{
  CREATE TABLE posts(
-<<<<<<< HEAD
+
    id          INTEGER   PRIMARY KEY,
-=======
-   id          INTEGER   PRIMARY KEY AUTOINCREMENT,
->>>>>>> 7eb0826796847f2a9fbea2e08ecb6117e4550926
    creator_id  INTEGER   NOT NULL,
    time        INTEGER   NOT NULL,
    location    TEXT      NOT NULL,
@@ -75,7 +68,16 @@ sqlite.execute %q{
    FOREIGN KEY(post_id) REFERENCES posts(id)
  );
 }
+sqlite.execute %q{
+ CREATE TABLE group_memb(
+   id          INTEGER   PRIMARY KEY AUTOINCREMENT,
+   user_id     INTEGER   NOT NULL,
+   group_id    INTEGER   NOT NULL,
+   FOREIGN KEY(user_id) REFERENCES users(id),
+   FOREIGN KEY(group_id)REFERENCES circle(id)
 
+   );
+}
 
 puts "Database Schema:\n\n"
 puts `echo .schema | sqlite3 #{db_name}`
