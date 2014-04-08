@@ -36,7 +36,7 @@ module RunB
     def get_user(user_id)
       rows = @sqlite.execute("SELECT * FROM users WHERE id = ?", user_id)
       data = rows.first
-      # Create a convenient Project object based on the data given to us by SQLite
+
       user = RunB::User.new({:username => data[1], :password => data[2], :age => data[3], :email => data[4], :level => data[5]})
       user.id = data[0]
       user
@@ -46,7 +46,7 @@ module RunB
       user_list = @sqlite.execute("SELECT * FROM users")
 
       user_list.map do |row|
-        user = RunB::User.new({:username => row[1], :password => row[2], :age=> row[3], :email => row[4], row[5]})
+        user = RunB::User.new({:username => row[1], :password => row[2], :age=> row[3], :email => row[4], :level => row[5]})
         user.id = row[0]
         user
       end
@@ -87,6 +87,7 @@ module RunB
         if data_hash[:level]
           @sqlite.execute("UPDATE users SET level = ? WHERE id = ?", data_hash[:level], user_id)
         end
+        self.get_user(user_id)
     end
 
     #-- WRITE DELETE FUNCTION --
@@ -139,7 +140,7 @@ module RunB
         if data_hash[:min_amt]
           @sqlite.execute("UPDATE posts SET min_amt = ? WHERE id = ?", data_hash[:min_amt], post_id)
         end
-        if data_hash[:buddy_age] || data_hash[:buddy_gender] || data_hash[:post_id]
+        if (data_hash[:buddy_age] || data_hash[:buddy_gender] || data_hash[:post_id])
           rows = @sqlite("SELECT * FROM posts WHERE id = ?", post_id)
           data = rows.first
           self.update_buddy_pref(data[3], data_hash)
@@ -164,7 +165,7 @@ module RunB
     def get_wallet(wallet_id)
       rows = @sqlite.execute("SELECT * FROM wallets WHERE id = ?", wallet_id)
       data = rows.first
-      # Create a convenient Project object based on the data given to us by SQLite
+
       wallet = RunB::Wallet.new(data[1], data[2])
       wallet.id = data[0]
       wallet
@@ -173,7 +174,7 @@ module RunB
     def get_wallet_by_user(user_id)
       rows = @sqlite.execute("SELECT * FROM wallets WHERE user_id = ?", user_id)
       data = rows.first
-      # Create a convenient Project object based on the data given to us by SQLite
+
       wallet = RunB::Wallet.new(data[1], data[2])
       wallet.id = data[0]
       wallet
@@ -182,13 +183,14 @@ module RunB
     def update_wallet(user_id, transaction)
       wallet = self.get_wallet_by_user(user_id)
       @sqlite.execute("UPDATE wallets SET balance = ? WHERE id = ?", wallet.balance + transaction, wallet.id)
+      wallet = self.get_wallet_by_user(user_id)
     end
 
 
 #CIRCLE
-    def create_circle(name)
-        new_circle = RunB::Circle.new(name)
-        @sqlite.execute("INSERT INTO circles (name) VALUES (?);", name)
+    def create_circle(name, creator_id)
+        new_circle = RunB::Circle.new(name, creator_id)
+        @sqlite.execute("INSERT INTO circles (name, creator_id) VALUES (?, ?);", name, creator_id)
         new_circle.id = @sqlite.execute("SELECT last_insert_rowid()")[0][0]
         new_circle
     end
@@ -196,8 +198,8 @@ module RunB
     def get_circle(circle_id)
       rows = @sqlite.execute("SELECT * FROM circles WHERE id = ?", circle_id)
       data = rows.first
-      # Create a convenient Project object based on the data given to us by SQLite
-      circle = RunB::Circle.new(data[1])
+
+      circle = RunB::Circle.new(data[1], data[2])
       circle.id = data[0]
       circle
     end
@@ -206,7 +208,7 @@ module RunB
         circle_list = @sqlite.execute("SELECT * FROM circles")
 
         circle_list.map do |row|
-            circle = RunB::Circle.new(row[1])
+            circle = RunB::Circle.new(row[1], row[2])
             circle.id = row[0]
             circle
         end
@@ -214,6 +216,7 @@ module RunB
 
     def update_circle(circle_id, name)
       @sqlite.execute("UPDATE circles SET name = ? where id = ?", name, circle_id)
+      self.get_circle(circle_id)
     end
 
 
@@ -224,11 +227,12 @@ module RunB
  # CIRCLE MEMBERSHIPS
 
     def add_circle_member(circle_id, user_id)
-      @sqlite.execute("INSERT INTO circle_membership (user_id) VALUES (?)", user_id)
+      @sqlite.execute("INSERT INTO circle_memb (user_id, circle_id) VALUES (?, ?)", user_id, circle_id)
+      self.get_circle(circle_id)
     end
 
     def get_circle_members_by_cid(circle_id)
-      member_list = @sqlite.execute("SELECT * FROM circle_membership WHERE circle_id = ?", circle_id)
+      member_list = @sqlite.execute("SELECT * FROM circle_memb WHERE circle_id = ?", circle_id)
 
       member_list.map do |row|
             user = self.get_user(row[1])
@@ -237,7 +241,7 @@ module RunB
     end
 
     def get_circles_by_uid(user_id)
-      circle_list = @sqlite.execute("SELECT * FROM circle_membership WHERE user_id = ?", user_id)
+      circle_list = @sqlite.execute("SELECT * FROM circle_memb WHERE user_id = ?", user_id)
 
       circle_list.map do |row|
             circle = self.get_circle(row[2])
@@ -257,7 +261,7 @@ module RunB
     def get_commitment(comm_id)
       rows = @sqlite.execute("SELECT * FROM commitments WHERE id = ?", comm_id)
       data = rows.first
-      # Create a convenient Project object based on the data given to us by SQLite
+
       commit = RunB::Commitment.new(data[1], data[2], data[3])
       commit.id = data[0]
       commit

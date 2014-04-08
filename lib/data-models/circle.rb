@@ -4,13 +4,9 @@ module RunB
     attr_reader :name
     attr_accessor :id, :creator_id, :joiner_id
 
-  @@num_circles = 0
-    def initialize(name="Friends", creator_id, joiner_id)
-      @@num_circles+=1
-      @id = @@num_circles
+    def initialize(name="Friends", creator_id)
       @name = name
       @creator_id = creator_id
-      @joiner_id = joiner_id
     end
 
   end

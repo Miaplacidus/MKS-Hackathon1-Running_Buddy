@@ -10,7 +10,6 @@ sqlite.execute %q{DROP TABLE IF EXISTS circles}
 sqlite.execute %q{DROP TABLE IF EXISTS posts}
 sqlite.execute %q{DROP TABLE IF EXISTS commitments}
 sqlite.execute %q{DROP TABLE IF EXISTS group_memb}
-# ADD BUDDY PREFERENCES AND BUDDY PREF ID TO POST (REMOVE FROM USER), WALLET
 # GROUP MEMBERSHIP TABLE FOR CIRCLES
 
 
@@ -40,8 +39,6 @@ sqlite.execute %q{
    id          INTEGER   PRIMARY KEY AUTOINCREMENT,
    name        TEXT      NOT NULL,
    creator_id  INTEGER   NOT NULL,
-   joiner_id   INTEGER   NOT NULL,
-   FOREIGN KEY(joiner_id) REFERENCES users(id),
    FOREIGN KEY(creator_id) REFERENCES users(id)
  );
 }
@@ -71,12 +68,12 @@ sqlite.execute %q{
  );
 }
 sqlite.execute %q{
- CREATE TABLE group_memb(
+ CREATE TABLE circle_memb(
    id          INTEGER   PRIMARY KEY AUTOINCREMENT,
    user_id     INTEGER   NOT NULL,
-   group_id    INTEGER   NOT NULL,
+   circle_id    INTEGER   NOT NULL,
    FOREIGN KEY(user_id) REFERENCES users(id),
-   FOREIGN KEY(group_id)REFERENCES circle(id)
+   FOREIGN KEY(circle_id)REFERENCES circle(id)
    );
 }
 sqlite.execute %q{
