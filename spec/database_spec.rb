@@ -18,9 +18,9 @@ describe 'Database' do
 
     it 'can display users history of runs' do
       user1 = @db.create_user({name:"John Doe", password: "123456", age: 25, email:"john@doe.com", level: 2, gender: "male"})
-      @db.create_post({creator_id: user1.id, time: 8, location: "716 Congress Ave., Austin, TX", pace: 1, buddy_gender: 1, buddy_age: 2, min_amt: 10, complete: 0})
-      # @db.get_usr_hist(@user1.id)
-
+      @db.create_post({creator_id: user1.id, time: 8, location: "716 Congress Ave., Austin, TX", pace: 1, buddy_gender: 1, buddy_age: 21, min_amt: 10, complete: 0})
+      result = @db.get_usr_hist(user1.id)
+      exp
     end
 
     xit 'can delete a user' do
@@ -30,7 +30,8 @@ describe 'Database' do
   end
 
   describe 'Posts/Runs' do
-    xit 'can create a post and retrieve it' do
+    it 'can create a post and retrieve it' do
+      user1 = @db.create_user({name:"John Doe", password: "123456", age: 25, email:"john@doe.com", level: 2, gender: "male"})
       post1 = @db.create_post(user1.id, "8am", "716 Congress Ave., Austin, TX")
       result = @db.get_post(postTest.id)
       expect(result).to eq(post1)
