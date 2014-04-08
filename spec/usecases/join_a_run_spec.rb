@@ -7,7 +7,7 @@ describe 'JoinARun' do
     @postTest = @db.create_post(@userTest.id, "11:00AM CST", "12th Street, Austin, TX", 4, 10)
   end
 
-  it "errors, if " do
+  xit "errors, if " do
 
     expect(result.error).to eq( )
     expect(result.error?).to eq(true)

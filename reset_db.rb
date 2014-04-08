@@ -1,6 +1,6 @@
 require 'sqlite3'
 
-db_name = ARGV[0] || 'RunB.db'
+db_name = ARGV[0] || 'RunB_test.db'
 sqlite = SQLite3::Database.new(db_name)
 
 puts "Destroying #{db_name}..."
@@ -25,7 +25,6 @@ sqlite.execute %q{
    email       TEXT     NOT NULL,
    level       INTEGER  NOT NULL,
    rating      INTEGER  NOT NULL,
-   budp_id     INTEGER  NOT NULL,
    wallet_id   INTEGER
  );
 }
