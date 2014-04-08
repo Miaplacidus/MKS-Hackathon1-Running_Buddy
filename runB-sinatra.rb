@@ -68,6 +68,10 @@ get '/map' do
   erb :map
 end
 
+get '/groups' do
+  erb :groups
+end
+
 not_found do
   status 404
   'not found'

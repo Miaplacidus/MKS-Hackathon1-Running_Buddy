@@ -23,6 +23,6 @@ end
 # PACE are like so:
 # 0 - Military (6 min/mi)
 # 1 - Advanced (7-8 min/mi)
-# 2 - Intermediate (9-10 min/mi)
+# 2 - Intermediate (8-10 min/mi)
 # 3 - Beginner (11-12 min/mi)
 # 4 - Speedwalk (13+ min/mi)
