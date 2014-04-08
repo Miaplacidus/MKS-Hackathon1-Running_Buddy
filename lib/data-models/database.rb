@@ -210,26 +210,7 @@ module RunB
     def delete_circle(circle_id)
     end
 
-#POST METHODS
-
-    def get_post(post_id)
-      rows = @sqlite.execute("SELECT * FROM posts WHERE id = ?", post_id)
-      data = rows.first
-      # Create a convenient Project object based on the data given to us by SQLite
-      post = RunB::Post.new(data[1], data[2], data[3], data[4], data[5])
-      post.id = data[0]
-      post
-    end
-
-    def ls_post
-        post_list = @sqlite.execute("SELECT * FROM posts")
-
-        post_list.map do |row|
-            post = RunB::Post.new(row[1], row[2], row[3], row[4], row[5])
-            post.id = row[0]
-            post
-        end
-    end
+#POST METHODS Number 2
 
     def update_post(post_id, data_hash)
         if data_hash[:time]
