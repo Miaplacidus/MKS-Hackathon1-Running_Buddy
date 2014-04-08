@@ -7,7 +7,7 @@
   <script src="https://static-interlogyllc.netdna-ssl.com/static/jotform.js?3.2.1272" type="text/javascript"></script>
   <script type="text/javascript">
      JotForm.init(function(){
-        $('input_6').hint('ex: myname@example.com');
+    var mandrillApiKey = "<%= ENV['MANDRILL_APIKEY'] %>";
      });
   </script>
   <link href="https://static-interlogyllc.netdna-ssl.com/static/formCss.css?3.2.1272" rel="stylesheet" type="text/css" />
@@ -57,7 +57,7 @@
           Username<span class="form-required">*</span>
         </label>
         <div id="cid_3" class="form-input">
-          <input type="text" class=" form-textbox validate[required]" data-type="input-textbox" id="username" name="username" size="20" value="" />
+          <input type="text" class=" form-textbox validate[required]" data-type="input-textbox" id="input_3" name="q3_username" size="20" value="" />
         </div>
       </li>
       <li class="form-line" id="id_6">
@@ -73,7 +73,7 @@
           Password<span class="form-required">*</span>
         </label>
         <div id="cid_5" class="form-input">
-          <input type="password" class=" form-textbox validate[required]" data-type="input-textbox" id="input_5" name="q5_password" size="20" value="" />
+          <input type="text" class=" form-textbox validate[required]" data-type="input-textbox" id="input_5" name="q5_password" size="20" value="" />
         </div>
       </li>
       <li class="form-line" id="id_7">
