@@ -5,11 +5,9 @@ module RunB
   def self.db
     @__db_instance ||= Database.new(@app_db_name)
   end
-
   def self.db_name=(db_name)
     @app_db_name = db_name
   end
-
 
   class Database
   attr_accessor :users, :posts, :circles, :commitments, :wallets, :buddy_prefs, :sessions
@@ -29,7 +27,7 @@ module RunB
 
 # USER METHODS
     def create_user(username, password, age, email, level, buddy_age, buddy_gender)
-      new_user = User.new(username, password, age, email, level, buddy_age, buddy_gender)
+      new_user = RunB::User.new(username, password, age, email, level, buddy_age, buddy_gender)
       bpref = self.create_buddy_pref(buddy_age, buddy_gender)
       @sqlite.execute("INSERT INTO users (name, password, age, email, level, bpref_id) VALUES (?);", name, password, age, email, level, bpref.id)
       new_user.id = @sqlite.execute("SELECT last_insert_rowid()")[0][0]
@@ -89,10 +87,8 @@ module RunB
         end
     end
 
-    def delete_user(user_id)
-    end
-
-
+    # def delete_user(user_id)
+    # end
 
 # #POST METHODS
 #     def create_post(creator_id, time, location, pace, min_commit)
