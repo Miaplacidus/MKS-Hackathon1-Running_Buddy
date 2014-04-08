@@ -53,7 +53,6 @@ module RunB
       end
     end
 
-
     def get_user_from_username(username)
         rows = @sqlite.execute("SELECT * users where name = ?", username)
         data = rows.first
@@ -166,7 +165,7 @@ module RunB
       rows = @sqlite.execute("SELECT * FROM wallets WHERE user_id = ?", user_id)
       data = rows.first
       # Create a convenient Project object based on the data given to us by SQLite
-      wallet = RunB::Wallet.new(data[1], data[2]])
+      wallet = RunB::Wallet.new(data[1], data[2])
       wallet.id = data[0]
       wallet
     end
@@ -212,12 +211,6 @@ module RunB
     end
 
 #POST METHODS
-    def create_post(creator_id, time, location, pace, min_commit)
-      new_post = RunB::Post.new(creator_id, time, location, pace, min_commit)
-      @sqlite.execute("INSERT INTO posts (creator_id, time, location, pace, min_commit) VALUES (?);", creator_id, time, location, pace, min_commit)
-      new_post.id = @sqlite.execute("SELECT last_insert_rowid()")[0][0]
-      new_post
-    end
 
     def get_post(post_id)
       rows = @sqlite.execute("SELECT * FROM posts WHERE id = ?", post_id)
@@ -285,7 +278,7 @@ module RunB
       rows = @sqlite.execute("SELECT * FROM wallets WHERE user_id = ?", user_id)
       data = rows.first
       # Create a convenient Project object based on the data given to us by SQLite
-      wallet = RunB::Wallet.new(data[1], data[2]])
+      wallet = RunB::Wallet.new(data[1], data[2])
       wallet.id = data[0]
       wallet
     end
@@ -495,7 +488,6 @@ end
     end
 
     def update_buddy_pref(bf_id, data_hash)
-
     end
 
 #QUERY METHODS
@@ -505,9 +497,6 @@ end
         new_session.id = @sqlite.execute("SELECT last_insert_rowid()")[0][0]
         new_session
     end
-
-  end
-end
 
     def create_wallet(user_id, init_amt)
         new_wallet = RunB::Wallet.new(user_id, init_amt)
@@ -529,7 +518,7 @@ end
       rows = @sqlite.execute("SELECT * FROM wallets WHERE user_id = ?", user_id)
       data = rows.first
       # Create a convenient Project object based on the data given to us by SQLite
-      wallet = RunB::Wallet.new(data[1], data[2]])
+      wallet = RunB::Wallet.new(data[1], data[2])
       wallet.id = data[0]
       wallet
     end
@@ -665,7 +654,6 @@ end
         new_session
     end
 
-  end
 
-end
+  end
 end
