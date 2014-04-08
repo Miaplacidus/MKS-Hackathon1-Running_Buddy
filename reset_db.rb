@@ -23,7 +23,7 @@ sqlite.execute %q{
    age         INTEGER  NOT NULL,
    email       TEXT     NOT NULL,
    level       INTEGER  NOT NULL,
-   rating      INTEGER  NOT NULL,
+   rating      INTEGER ,
    wallet_id   INTEGER
  );
 }
