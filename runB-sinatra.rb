@@ -1,12 +1,14 @@
 require 'rubygems'
 require 'bundler/setup'
 require 'sinatra'
-require 'sinatra/reloader'
+# require "sinatra/reloader" if development?
 require 'thin'                ## THIS IS FOR FOREMAN
 require 'mandrill'
+require_relative 'lib/client_helper.rb'
+
+RunB.db_name = 'RunB_development.db'
 
 enable :sessions
-require_relative 'spec/spec_helper'
 
 set :bind, '0.0.0.0'
 
@@ -46,6 +48,7 @@ get '/sign_in' do
     end
     puts @message
     erb :sign_in
+  end
 end
 
 post '/sign_in' do
