@@ -11,7 +11,7 @@ require_relative 'spec/spec_helper'
 set :bind, '0.0.0.0'
 
 get '/' do
-  if sessions[:flash]
+  if session[:flash]
     @flash = session[:flash]
     session.delete(:flash)
   end
@@ -23,16 +23,33 @@ get '/sign_up' do
 end
 
 post '/sign_up' do
-  sessions[:flash] = "You are now registered as '#{params[:username]}'"
+  session[:flash] = "You are now registered as '#{params[:username]}'"
   redirect '/'
 end
 
 get '/sign_in' do
+  puts params
+  puts session[:username]
   erb :sign_in
+
+  result = RunB::SignIn.run(:username => params[:username], :password => params[:password])
+  if result.success?
+    puts "Success: #{result.inspect}"
+    session[:username] = params[:username]
+    redirect "/"
+  else
+    if result.error == :invalid_username
+      @message = "Sorry, username invalid"
+    end
+    if result.error == :invalid_password
+      @message = "Sorry, password is not correct."
+    end
+    puts @message
+    erb :sign_in
 end
 
 post '/sign_in' do
-  sessions[:flash] = "You are now signed in '#{params[:username]}'"
+  session[:flash] = "You are now signed in '#{params[:username]}'"
   redirect '/'
 end
 
