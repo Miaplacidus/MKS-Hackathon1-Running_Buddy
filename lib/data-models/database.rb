@@ -103,7 +103,7 @@ module RunB
 
       @sqlite.execute("INSERT INTO posts (creator_id, time, location, pace, min_amt, budp_id) VALUES (?,?,?,?,?,?);", data_hash[:creator_id], data_hash[:time], data_hash[:location], data_hash[:pace], data_hash[:min_amt], new_bpref.id)
       new_post.id = @sqlite.execute("SELECT last_insert_rowid()")[0][0]
-      self.update_buddy_pref({:post_id => new_post.id})
+      self.update_post({:post_id => new_post.id})
       new_post
     end
 
@@ -139,7 +139,7 @@ module RunB
         if data_hash[:min_amt]
           @sqlite.execute("UPDATE posts SET min_amt = ? WHERE id = ?", data_hash[:min_amt], post_id)
         end
-        if data_hash[:buddy_age] || data_hash[:buddy_gender]
+        if data_hash[:buddy_age] || data_hash[:buddy_gender] || data_hash[:post_id]
           rows = @sqlite("SELECT * FROM posts WHERE id = ?", post_id)
           data = rows.first
           self.update_buddy_pref(data[3], data_hash)

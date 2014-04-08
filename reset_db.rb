@@ -92,7 +92,7 @@ sqlite.execute %q{
    id          INTEGER   PRIMARY KEY AUTOINCREMENT,
    age         INTEGER   NOT NULL,
    gender      INTEGER   NOT NULL,
-   post_id     INTEGER   NOT NULL,
+   post_id     INTEGER
    FOREIGN KEY(post_id) REFERENCES posts(id)
  );
 }
