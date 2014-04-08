@@ -171,17 +171,9 @@ module RunB
       wallet
     end
 
-    def update_wallet(wallet_id, data_hash)
-      if data_hash[:transaction]
-          @sqlite.execute("UPDATE users SET name = ? WHERE id = ?", data_hash[:username], post_id)
-        end
-        if data_hash[:local]
-          @sqlite.execute("UPDATE users SET age = ? WHERE id = ?", data_hash[:age], post_id)
-        end
-        if data_hash[:pace]
-          @sqlite.execute("UPDATE users SET email = ? WHERE id = ?", data_hash[:email], post_id)
-        end
-
+    def update_wallet(user_id, transaction)
+      wallet = self.get_wallet_by_user(user_id)
+      @sqlite.execute("UPDATE wallets SET balance = ? WHERE id = ?", wallet.balance + transaction, wallet.id)
     end
 
 
@@ -212,11 +204,35 @@ module RunB
         end
     end
 
-    def update_circle(circle_id, data_hash)
-        @sqlite.execute("")
+    def update_circle(circle_id, name)
+      @sqlite.execute("UPDATE circles SET name = ? where id = ?", name, circle_id)
     end
 
     def delete_circle(circle_id)
+    end
+
+ # CIRCLE MEMBERSHIPS
+
+    def add_circle_member(circle_id, user_id)
+      @sqlite.execute("INSERT INTO circle_membership (user_id) VALUES (?)", user_id)
+    end
+
+    def get_circle_members_by_cid(circle_id)
+      member_list = @sqlite.execute("SELECT * FROM circle_membership WHERE circle_id = ?", circle_id)
+
+      member_list.map do |row|
+            user = self.get_user(row[1])
+            user
+        end
+    end
+
+    def get_circles_by_uid(user_id)
+      circle_list = @sqlite.execute("SELECT * FROM circle_membership WHERE user_id = ?", user_id)
+
+      circle_list.map do |row|
+            circle = self.get_circle(row[2])
+            circle
+        end
     end
 
 
@@ -247,7 +263,8 @@ module RunB
       end
     end
 
-    def update_comm(comm_id, data_hash)
+    def update_comm(comm_id, com_amt)
+
     end
 
 
@@ -269,6 +286,7 @@ module RunB
     end
 
     def update_buddy_pref(bf_id, data_hash)
+
     end
 
 #QUERY METHODS
