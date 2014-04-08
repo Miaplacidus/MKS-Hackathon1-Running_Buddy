@@ -74,6 +74,25 @@ module RunB
     end
 
     def update_user(user_id, data_hash)
+        # (username, password, age, email, level, buddy_age, buddy_gender)
+        if data_hash[:username]
+          @sqlite.execute("UPDATE users SET name = ? WHERE id = ?", data_hash[:username], user_id)
+        end
+        if data_hash[:age]
+          @sqlite.execute("UPDATE users SET age = ? WHERE id = ?", data_hash[:age], user_id)
+        end
+        if data_hash[:email]
+          @sqlite.execute("UPDATE users SET email = ? WHERE id = ?", data_hash[:email], user_id)
+        end
+        if data_hash[:level]
+          @sqlite.execute("UPDATE users SET level = ? WHERE id = ?", data_hash[:level], user_id)
+        end
+        if data_hash[:buddy_age]
+          @sqlite.execute("UPDATE users SET buddy_age = ? WHERE id = ?", data_hash[:buddy_age], user_id)
+        end
+        if data_hash[:buddy_gender]
+          @sqlite.execute("UPDATE users SET buddy_gender = ? WHERE id = ?", data_hash[:buddy_gender], user_id)
+        end
     end
 
     def delete_user(user_id)
@@ -107,7 +126,24 @@ module RunB
     end
 
     def update_post(post_id, data_hash)
-
+        if data_hash[:time]
+          @sqlite.execute("UPDATE users SET name = ? WHERE id = #{user_id}", data_hash[:username])
+        end
+        if data_hash[:local]
+          @sqlite.execute("UPDATE users SET age = ? WHERE id = #{user_id}", data_hash[:age])
+        end
+        if data_hash[:pace]
+          @sqlite.execute("UPDATE users SET email = ? WHERE id = #{user_id}", data_hash[:email])
+        end
+        if data_hash[:min_amt]
+          @sqlite.execute("UPDATE users SET level = ? WHERE id = #{user_id}", data_hash[:level])
+        end
+        if data_hash[:buddy_age]
+          @sqlite.execute("UPDATE users SET buddy_age = ? WHERE id = #{user_id}", data_hash[:buddy_age])
+        end
+        if data_hash[:buddy_gender]
+          @sqlite.execute("UPDATE users SET buddy_gender = ? WHERE id = #{user_id}", data_hash[:buddy_gender])
+        end
     end
 
     def delete_post(post_id)
@@ -174,6 +210,7 @@ module RunB
     end
 
     def update_circle(circle_id, data_hash)
+        @sqlite.execute("")
     end
 
     def delete_circle(circle_id)
@@ -220,12 +257,12 @@ module RunB
     end
 
     def get_buddy_pref(bf_id)
-      rows = @sqlite.execute("SELECT * FROM commitments WHERE id = ?", comm_id)
+      rows = @sqlite.execute("SELECT * FROM buddyprefs WHERE id = ?", bf_id)
       data = rows.first
       # Create a convenient Project object based on the data given to us by SQLite
-      commit = RunB::Commitment.new(data[1], data[2], data[3])
-      commit.id = data[0]
-      commit
+      bpref = RunB::BuddyPref.new(data[1], data[2])
+      bpref.id = data[0]
+      bpref
     end
 
     def update_buddy_pref(bf_id, data_hash)
