@@ -1,12 +1,12 @@
 module RunB
 
   class SeeCirclesNearYou < UseCase
+
     def run(inputs)
-      @db = RPS.db
+      @db = RunB.db
       circle = @db.get_circle(inputs[:circle_id])
-      return failure(:missing_circle) if circle.nil?
-
-
+      return failure(:missing_circle) if circle == nil
     end
+
   end
 end

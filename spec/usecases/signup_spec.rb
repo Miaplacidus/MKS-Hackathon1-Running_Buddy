@@ -17,27 +17,27 @@ describe RunB::SignUp do
     expect(result.error).to eq(:weak_password)
   end
   xit "errors, if no age is inputted" do
-    result = subject.run(:name => "Speedy_pants", :pw: "123hello", :age => nil)
+    result = subject.run(:name => "Speedy_pants", :pw => "123hello", :age => nil)
     expect(result.error?).to eq(true)
     expect(result.error).to eq(:missing_age)
   end
   xit "errors, if no email is inputted" do
-    result = subject.run(:name => "Speedy_pants", :pw: "hellow123", :age => 3, :email => nil)
+    result = subject.run(:name => "Speedy_pants", :pw => "hellow123", :age => 3, :email => nil)
     expect(result.error?).to eq(true)
     expect(result.error).to eq(:missing_email)
   end
   xit "errors, if no level is given" do
-    result = subject.run(:name => "Speedy_pants", :pw: "hellow123", :age => 3, :email => "me@apple.com", :level => nil)
+    result = subject.run(:name => "Speedy_pants", :pw => "hellow123", :age => 3, :email => "me@apple.com", :level => nil)
     expect(result.error?).to eq(true)
     expect(result.error).to eq(:missing_level)
   end
   xit "errors, if no buddy age preference is given" do
-    result = subject.run(:name => "Speedy_pants", :pw: "hellow123", :age => 3, :email => "me@apple.com", :level => 2, :buddy_age => nil)
+    result = subject.run(:name => "Speedy_pants", :pw => "hellow123", :age => 3, :email => "me@apple.com", :level => 2, :buddy_age => nil)
     expect(result.error?).to eq(true)
     expect(result.error).to eq(:missing_buddy_age_preference)
   end
   xit "errors, if no buddy gender preference is given" do
-    result = subject.run(:name => "Speedy_pants", :pw: "hellow123", :age => 3, :email => "me@apple.com", :level => 2, :buddy_age => 2, :buddy_gender => nil)
+    result = subject.run(:name => "Speedy_pants", :pw => "hellow123", :age => 3, :email => "me@apple.com", :level => 2, :buddy_age => 2, :buddy_gender => nil)
     expect(result.error?).to eq(true)
     expect(result.error).to eq(:missing_buddy_gender_preference)
   end
