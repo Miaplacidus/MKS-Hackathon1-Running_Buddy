@@ -3,7 +3,7 @@ require 'singleton'
 module RunB
 
   def self.db
-    @__db_instance ||= Database.new(@app_db_name)
+    @__db_instance ||= DB.new(@app_db_name)
   end
 
   def self.db_name=(db_name)
@@ -11,86 +11,88 @@ module RunB
   end
 
 
-  class Database
-  attr_accessor :users, :posts, :circles, :commitments, :wallets, :buddy_prefs, :sessions
+  class DB
+  # attr_accessor :users, :posts, :circles, :commitments, :wallets, :buddy_prefs, :sessions
     # USER: return the history of user's runs, including run day, length, pace, etc
 
     def initialize(db_name)
+       raise StandardError.new("Please set RunB.db_name") if db_name.nil?
+
       @sqlite = SQLite3::Database.new(db_name)
 
-      @all_users = {}
-      @all_posts = {}
-      @all_circles = {}
-      @all_commits = {}
-      @all_wallets = {}
-      @all_bprefs = {}
-      @sessions = {}
+      # @all_users = {}
+      # @all_posts = {}
+      # @all_circles = {}
+      # @all_commits = {}
+      # @all_wallets = {}
+      # @all_bprefs = {}
+      # @sessions = {}
     end
 
 # USER METHODS
-    def create_user(username, password, age, email, level, buddy_age, buddy_gender)
-      new_user = User.new(username, password, age, email, level, buddy_age, buddy_gender)
-      bpref = self.create_buddy_pref(buddy_age, buddy_gender)
-      @sqlite.execute("INSERT INTO users (name, password, age, email, level, bpref_id) VALUES (?);", name, password, age, email, level, bpref.id)
-      new_user.id = @sqlite.execute("SELECT last_insert_rowid()")[0][0]
-      new_user
-    end
+    # def create_user(username, password, age, email, level, buddy_age, buddy_gender)
+    #   new_user = RunB::User.new(username, password, age, email, level, buddy_age, buddy_gender)
+    #   bpref = self.create_buddy_pref(buddy_age, buddy_gender)
+    #   @sqlite.execute("INSERT INTO users (name, password, age, email, level, bpref_id) VALUES (?);", name, password, age, email, level, bpref.id)
+    #   new_user.id = @sqlite.execute("SELECT last_insert_rowid()")[0][0]
+    #   new_user
+    # end
 
-    def get_user(user_id)
-      rows = @sqlite.execute("SELECT * FROM users WHERE id = ?", user_id)
-      data = rows.first
-      # Create a convenient Project object based on the data given to us by SQLite
-      user = RunB::User.new(data[1], data[2], data[3], data[4], data[5])
-      user.id = data[0]
-      user
-    end
+    # def get_user(user_id)
+    #   rows = @sqlite.execute("SELECT * FROM users WHERE id = ?", user_id)
+    #   data = rows.first
+    #   # Create a convenient Project object based on the data given to us by SQLite
+    #   user = RunB::User.new(data[1], data[2], data[3], data[4], data[5])
+    #   user.id = data[0]
+    #   user
+    # end
 
-    def ls_users
-      user_list = @sqlite.execute("SELECT * FROM users")
+    # def ls_users
+    #   user_list = @sqlite.execute("SELECT * FROM users")
 
-      user_list.map do |row|
-        user = RunB::Post.new(row[1], row[2], row[3], row[4], row[5])
-        user.id = row[0]
-        user
-      end
-    end
+    #   user_list.map do |row|
+    #     user = RunB::Post.new(row[1], row[2], row[3], row[4], row[5])
+    #     user.id = row[0]
+    #     user
+    #   end
+    # end
 
 
-    def get_user_from_username(username)
-        rows = @sqlite.execute("SELECT * users where name = ?", username)
-        data = rows.first
-        user = RunB::User.new(data[1], data[2], data[3], data[4], data[5])
-        user.id = data[0]
-        user
-    end
+    # def get_user_from_username(username)
+    #     rows = @sqlite.execute("SELECT * users where name = ?", username)
+    #     data = rows.first
+    #     user = RunB::User.new(data[1], data[2], data[3], data[4], data[5])
+    #     user.id = data[0]
+    #     user
+    # end
 
-    def get_usr_hist(user_id)
-        run_list = @sqlite.execute("SELECT * commitments where user_id = ?", user_id)
+    # def get_usr_hist(user_id)
+    #     run_list = @sqlite.execute("SELECT * commitments where user_id = ?", user_id)
 
-        run_list.map do |row|
-            post = self.get_post(row[4])
-            post
-        end
-    end
+    #     run_list.map do |row|
+    #         post = self.get_post(row[4])
+    #         post
+    #     end
+    # end
 
-    def update_user(user_id, data_hash)
-        # (username, password, age, email, level, buddy_age, buddy_gender)
-        if data_hash[:username]
-          @sqlite.execute("UPDATE users SET name = ? WHERE id = ?", data_hash[:username], user_id)
-        end
-        if data_hash[:age]
-          @sqlite.execute("UPDATE users SET age = ? WHERE id = ?", data_hash[:age], user_id)
-        end
-        if data_hash[:email]
-          @sqlite.execute("UPDATE users SET email = ? WHERE id = ?", data_hash[:email], user_id)
-        end
-        if data_hash[:level]
-          @sqlite.execute("UPDATE users SET level = ? WHERE id = ?", data_hash[:level], user_id)
-        end
-    end
+    # def update_user(user_id, data_hash)
+    #     # (username, password, age, email, level, buddy_age, buddy_gender)
+    #     if data_hash[:username]
+    #       @sqlite.execute("UPDATE users SET name = ? WHERE id = ?", data_hash[:username], user_id)
+    #     end
+    #     if data_hash[:age]
+    #       @sqlite.execute("UPDATE users SET age = ? WHERE id = ?", data_hash[:age], user_id)
+    #     end
+    #     if data_hash[:email]
+    #       @sqlite.execute("UPDATE users SET email = ? WHERE id = ?", data_hash[:email], user_id)
+    #     end
+    #     if data_hash[:level]
+    #       @sqlite.execute("UPDATE users SET level = ? WHERE id = ?", data_hash[:level], user_id)
+    #     end
+    # end
 
-    def delete_user(user_id)
-    end
+    # def delete_user(user_id)
+    # end
 
 
 

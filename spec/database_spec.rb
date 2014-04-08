@@ -3,14 +3,15 @@ require 'spec_helper'
 describe 'Database' do
   before do
     @db = RunB.db
-    user1 = @db.create_user("John Doe", "123456", 25)
-    user2 = @db.create_user("Jane Smith", "654321", 23)
-    user3 = @db.create_user("Bugs Bunny", "abcdef", 19)
+    @user1 = @db.create_user("John Doe", "123456", 25)
+    @user2 = @db.create_user("Jane Smith", "654321", 23)
+    @user3 = @db.create_user("Bugs Bunny", "abcdef", 19)
+    sql_db = RunB::DB.new('runb.db')
   end
 
   describe 'Users' do
     it 'can be created with name, password, age, and retreived' do
-      expect(@db.get_user(user1.id)).to eq (user1.id)
+
     end
 
     # it 'can display users history of runs' do
