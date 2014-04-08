@@ -57,7 +57,11 @@ post '/sign_in' do
 end
 
 get '/post_a_run' do
+  erb :post_a_run
+end
 
+get '/profile' do
+  erb :profile
 end
 
 get '/map' do
