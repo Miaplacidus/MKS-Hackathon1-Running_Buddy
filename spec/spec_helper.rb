@@ -1,6 +1,7 @@
 # Require our project (i.e. client_helper), which in turns requires everything else
 require './lib/client_helper.rb'
 require 'pry-debugger'
+require './reset_db.rb'
 
 RunB.db_name = 'RunB_test.db'
 

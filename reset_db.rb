@@ -9,9 +9,9 @@ sqlite.execute %q{DROP TABLE IF EXISTS sessions}
 sqlite.execute %q{DROP TABLE IF EXISTS circles}
 sqlite.execute %q{DROP TABLE IF EXISTS posts}
 sqlite.execute %q{DROP TABLE IF EXISTS commitments}
-sqlite.execute %q{DROP TABLE IF EXISTS group_memb}
-# GROUP MEMBERSHIP TABLE FOR CIRCLES
-
+sqlite.execute %q{DROP TABLE IF EXISTS circle_membs}
+sqlite.execute %q{DROP TABLE IF EXISTS wallets}
+sqlite.execute %q{DROP TABLE IF EXISTS buddyprefs}
 
 
 puts "Creating tables..."
@@ -51,7 +51,7 @@ sqlite.execute %q{
    pace        INTEGER   NOT NULL,
    min_amt     INTEGER   NOT NULL,
    complete    BOOLEAN      NOT NULL,
-   budp_id     INTEGER
+   budp_id     INTEGER,
    FOREIGN KEY(creator_id) REFERENCES users(id),
    FOREIGN KEY(budp_id) REFERENCES buddyprefs(id)
  );
@@ -63,15 +63,15 @@ sqlite.execute %q{
    amount      INTEGER   NOT NULL,
    post_id          INTEGER   NOT NULL,
    fulfilled   BOOLEAN      NOT NULL,
-   FOREIGN KEY(user_id) REFERENCES users(id)
+   FOREIGN KEY(user_id) REFERENCES users(id),
    FOREIGN KEY(post_id) REFERENCES posts(id)
  );
 }
 sqlite.execute %q{
- CREATE TABLE circle_memb(
+ CREATE TABLE circle_membs(
    id          INTEGER   PRIMARY KEY AUTOINCREMENT,
    user_id     INTEGER   NOT NULL,
-   circle_id    INTEGER   NOT NULL,
+   circle_id   INTEGER   NOT NULL,
    FOREIGN KEY(user_id) REFERENCES users(id),
    FOREIGN KEY(circle_id)REFERENCES circle(id)
    );
@@ -79,8 +79,8 @@ sqlite.execute %q{
 sqlite.execute %q{
  CREATE TABLE wallets(
    id          INTEGER   PRIMARY KEY AUTOINCREMENT,
-   user_id  INTEGER   NOT NULL,
-   balance        INTEGER   NOT NULL,
+   user_id     INTEGER   NOT NULL,
+   balance     INTEGER   NOT NULL,
    FOREIGN KEY(user_id) REFERENCES users(id)
  );
 }
@@ -89,7 +89,7 @@ sqlite.execute %q{
    id          INTEGER   PRIMARY KEY AUTOINCREMENT,
    age         INTEGER   NOT NULL,
    gender      INTEGER   NOT NULL,
-   post_id     INTEGER
+   post_id     INTEGER,
    FOREIGN KEY(post_id) REFERENCES posts(id)
  );
 }
