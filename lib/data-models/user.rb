@@ -1,6 +1,7 @@
 module RunB
   class User
-    attr_accessor :name, :email, :age, :level, :rating, :wallet_id, :id
+    attr_accessor :name, :email, :age, :level, :rating, :wallet_id, :id, :gender
+
 
     @@num_users = 0
     def initialize(attrs={})
@@ -15,6 +16,7 @@ module RunB
       end
       @rating = 3
       @wallet_id = nil
+      @gender = attrs[:gender]
     end
 
   end

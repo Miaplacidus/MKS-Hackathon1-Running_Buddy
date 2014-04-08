@@ -23,8 +23,9 @@ sqlite.execute %q{
    age         INTEGER  NOT NULL,
    email       TEXT     NOT NULL,
    level       INTEGER  NOT NULL,
-   rating      INTEGER ,
-   wallet_id   INTEGER
+   rating      INTEGER,
+   wallet_id   INTEGER,
+   gender      INTEGER
  );
 }
 sqlite.execute %q{
@@ -50,7 +51,7 @@ sqlite.execute %q{
    location    TEXT      NOT NULL,
    pace        INTEGER   NOT NULL,
    min_amt     INTEGER   NOT NULL,
-   complete    BOOLEAN      NOT NULL,
+   complete    BOOLEAN   NOT NULL,
    budp_id     INTEGER,
    FOREIGN KEY(creator_id) REFERENCES users(id),
    FOREIGN KEY(budp_id) REFERENCES buddyprefs(id)
