@@ -141,7 +141,7 @@ module RunB
           @sqlite.execute("UPDATE posts SET min_amt = ? WHERE id = ?", data_hash[:min_amt], post_id)
         end
         if (data_hash[:buddy_age] || data_hash[:buddy_gender] || data_hash[:post_id])
-          rows = @sqlite("SELECT * FROM posts WHERE id = ?", post_id)
+          rows = @sqlite.execute("SELECT * FROM posts WHERE id = ?", post_id)
           data = rows.first
           self.update_buddy_pref(data[3], data_hash)
         end

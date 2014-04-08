@@ -10,7 +10,7 @@ require_relative 'spec/spec_helper'
 set :bind, '0.0.0.0'
 
 get '/' do
-  'Welcome to Running Buddy!'
+  erb :map
 end
 
 get '/sign_up' do
@@ -22,7 +22,7 @@ get '/sign_in' do
 end
 
 get '/post_a_run' do
-  erb :post_a_run
+
 end
 
 get '/map' do
