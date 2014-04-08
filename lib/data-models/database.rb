@@ -87,12 +87,6 @@ module RunB
         if data_hash[:level]
           @sqlite.execute("UPDATE users SET level = ? WHERE id = ?", data_hash[:level], user_id)
         end
-        if data_hash[:buddy_age]
-          @sqlite.execute("UPDATE users SET buddy_age = ? WHERE id = ?", data_hash[:buddy_age], user_id)
-        end
-        if data_hash[:buddy_gender]
-          @sqlite.execute("UPDATE users SET buddy_gender = ? WHERE id = ?", data_hash[:buddy_gender], user_id)
-        end
     end
 
     def delete_user(user_id)
@@ -127,22 +121,22 @@ module RunB
 
     def update_post(post_id, data_hash)
         if data_hash[:time]
-          @sqlite.execute("UPDATE users SET name = ? WHERE id = #{user_id}", data_hash[:username])
+          @sqlite.execute("UPDATE posts SET time = ? WHERE id = ?", data_hash[:time], post_id)
         end
-        if data_hash[:local]
-          @sqlite.execute("UPDATE users SET age = ? WHERE id = #{user_id}", data_hash[:age])
+        if data_hash[:location]
+          @sqlite.execute("UPDATE posts SET location = ? WHERE id = ?", data_hash[:location], post_id)
         end
         if data_hash[:pace]
-          @sqlite.execute("UPDATE users SET email = ? WHERE id = #{user_id}", data_hash[:email])
+          @sqlite.execute("UPDATE posts SET pace = ? WHERE id = ?", data_hash[:pace], post_id)
         end
         if data_hash[:min_amt]
-          @sqlite.execute("UPDATE users SET level = ? WHERE id = #{user_id}", data_hash[:level])
+          @sqlite.execute("UPDATE posts SET min_amt = ? WHERE id = ?", data_hash[:min_amt], post_id)
         end
         if data_hash[:buddy_age]
-          @sqlite.execute("UPDATE users SET buddy_age = ? WHERE id = #{user_id}", data_hash[:buddy_age])
+          @sqlite.execute("UPDATE posts SET buddy_age = ? WHERE id = ?", data_hash[:buddy_age], post_id)
         end
         if data_hash[:buddy_gender]
-          @sqlite.execute("UPDATE users SET buddy_gender = ? WHERE id = #{user_id}", data_hash[:buddy_gender])
+          @sqlite.execute("UPDATE posts SET buddy_gender = ? WHERE id = ?", data_hash[:buddy_gender], post_id)
         end
     end
 
@@ -178,6 +172,15 @@ module RunB
     end
 
     def update_wallet(wallet_id, data_hash)
+      if data_hash[:transaction]
+          @sqlite.execute("UPDATE users SET name = ? WHERE id = ?", data_hash[:username], post_id)
+        end
+        if data_hash[:local]
+          @sqlite.execute("UPDATE users SET age = ? WHERE id = ?", data_hash[:age], post_id)
+        end
+        if data_hash[:pace]
+          @sqlite.execute("UPDATE users SET email = ? WHERE id = ?", data_hash[:email], post_id)
+        end
 
     end
 
