@@ -17,6 +17,10 @@ get '/sign_up' do
   erb :sign_up
 end
 
+post '/sign_up' do
+  "You are now registered '#{params[:username]}'"
+end
+
 get '/sign_in' do
   erb :sign_in
 end
