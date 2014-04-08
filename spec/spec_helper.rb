@@ -9,6 +9,6 @@ RSpec.configure do |config|
   config.before(:each) do
     RunB.instance_variable_set(:@__db_instance, nil)
 
-    # RunB.db.clear_all_records
+    RunB.db.clear_all_records
   end
 end

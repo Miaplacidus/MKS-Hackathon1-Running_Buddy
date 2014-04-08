@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Find a RunningBuddy in your city</title>
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+    <style type="text/css">
+      #map{
+        height: 300px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Find a RunningBuddy in your city</h1>
+    <h3>Here are the RunningBuddies near you:</h3>
+    <div id="map">Map will go here</div>
+    <script type="text/javascript">
+      var map = L.map('map').setView([51.505, -0.09], 13);
+
+      L.tileLayer('http://{s}.tile.cloudmade.com/API-key/997/256/{z}/{x}/{y}.png', {
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+        maxZoom: 18
+      }).addTo(map);
+    </script>
+  </body>
+
+</html>

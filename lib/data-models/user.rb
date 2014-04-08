@@ -1,7 +1,5 @@
 module RunB
   class User
-    # Additionally, user has property history, a list of
-    # all of their completed runs
     attr_reader :id
     attr_accessor :name, :email, :age, :level, :rating, :wallet_id
 
@@ -11,7 +9,11 @@ module RunB
       @password = attrs[:password]
       @age = attrs[:age]
       @email = attrs[:email]
-      @level = 3
+      if attrs[:level]
+        @level = attrs[:level]
+      else
+        @level = 3
+      end
       @rating = 3
       @@num_users += 1
       @id = @@num_users
