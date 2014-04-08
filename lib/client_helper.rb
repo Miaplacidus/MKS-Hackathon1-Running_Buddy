@@ -7,3 +7,4 @@ require_relative 'use_case.rb'
 Dir[File.dirname(__FILE__) + '/data-models/*.rb'].each {|file| require file }
 Dir[File.dirname(__FILE__) + '/usecases/*.rb'].each {|file| require file }
 Dir[File.dirname(__FILE__) + 'spec/usecases/*.rb'].each {|file| require file }
+
