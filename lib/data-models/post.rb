@@ -1,7 +1,7 @@
 module RunB
   class Post
 
-    attr_accessor :time, :location, :pace, :complete, :min_amt
+    attr_accessor :time, :location, :pace, :complete, :min_amt, :budp_id
     attr_reader :id, :creator_id
 
     @@num_posts = 0
