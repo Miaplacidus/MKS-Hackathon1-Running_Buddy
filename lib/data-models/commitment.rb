@@ -1,7 +1,7 @@
 module RunB
   class Commitment
     # NOTE USE CASES: Check that com_amount >= post min_amount
-    # NOTE USE CASES: User can only modify amount up to 15 min
+    # NOTE USE CASES: User can only modify amount up to 12 hours
     # before a run
 
     attr_reader :id

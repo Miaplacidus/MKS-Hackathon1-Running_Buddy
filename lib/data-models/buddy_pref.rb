@@ -1,8 +1,10 @@
 module RunB
   class BuddyPref
 
+# post id attributes allows users to search through posts that fit their
+# gender and age groups
     attr_reader :id
-    attr_accessor :age, :gender
+    attr_accessor :age, :gender, :post_id
 
     @@num_bprefs = 0
     def initialize(age, gender)
