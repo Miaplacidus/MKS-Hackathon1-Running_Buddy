@@ -15,8 +15,6 @@ module RunB
       @min_amt = attrs[:min_amt]
       @@num_posts +=1
       @id = @@num_posts
-      buddy_pref = BuddyPref.new(buddy_age, buddy_gender)
-      @budp_id = buddy_pref.id
     end
 
   end
