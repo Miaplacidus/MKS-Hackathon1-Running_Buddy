@@ -9,7 +9,8 @@ sqlite.execute %q{DROP TABLE IF EXISTS sessions}
 sqlite.execute %q{DROP TABLE IF EXISTS circles}
 sqlite.execute %q{DROP TABLE IF EXISTS posts}
 sqlite.execute %q{DROP TABLE IF EXISTS commitments}
-# ADD BUDDY PREFERENCES, WALLET
+sqlite.execute %q{DROP TABLE IF EXISTS group_memb}
+# ADD BUDDY PREFERENCES AND BUDDY PREF ID TO POST (REMOVE FROM USER), WALLET
 
 
 
@@ -36,7 +37,7 @@ sqlite.execute %q{
 }
 sqlite.execute %q{
  CREATE TABLE  circles(
-   id          INTEGER   PRIMARY KEY,
+   id          INTEGER   PRIMARY KEY AUTOINCREMENT,
    name        TEXT      NOT NULL,
    creator_id  INTEGER   NOT NULL,
    joiner_id   INTEGER   NOT NULL,
@@ -46,8 +47,7 @@ sqlite.execute %q{
 }
 sqlite.execute %q{
  CREATE TABLE posts(
-
-   id          INTEGER   PRIMARY KEY,
+   id          INTEGER   PRIMARY KEY AUTOINCREMENT,
    creator_id  INTEGER   NOT NULL,
    time        INTEGER   NOT NULL,
    location    TEXT      NOT NULL,
