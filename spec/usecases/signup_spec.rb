@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'SignUp' do
+describe RunB::SignUp do
   before do
     @db = RunB.db
     @userTest = @db.create_user("Speedo", "hello123", 2, "testing@test.com", 2, 3, "male")
