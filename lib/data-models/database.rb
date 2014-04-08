@@ -87,8 +87,9 @@ module RunB
         end
     end
 
-    # def delete_user(user_id)
-    # end
+    # DELETE
+    def delete_user(user_id)
+    end
 
 # #POST METHODS
 #     def create_post(creator_id, time, location, pace, min_commit)
