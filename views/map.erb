@@ -14,7 +14,7 @@
       padding:0;*/
     }
     #map{
-      height: 500px;
+      height: 400px;
       width:100%;
       /*position:absolute;
       top:0;
@@ -70,8 +70,107 @@
   <h3>Here are the RunningBuddies near you:</h3>
   <div id='map'></div>
   <script>
-  var map = L.mapbox.map('map', 'sarmadbokhari.ho458c5h').setView([30.27, -97.74], 12);
+      var map = L.mapbox.map('map', 'sarmadbokhari.ho458c5h').setView([30.27, -97.74], 12);
       L.control.locate().addTo(map);
+
+      var greenIcon = L.icon({
+        iconUrl: 'leaf-green.png',
+        shadowUrl: 'leaf-shadow.png',
+
+        iconSize:     [38, 95], // size of the icon
+        shadowSize:   [50, 64], // size of the shadow
+        iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+        shadowAnchor: [4, 62],  // the same for the shadow
+        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+      });
+
+      L.marker([30.267, -97.743]).addTo(map)
+      .bindPopup('RunningBuddy Group: MakerSquare')
+      .openPopup();
+
+      L.marker([30.237, -97.713]).addTo(map)
+      .bindPopup('RunningBuddy User: <b>SarmadBokhari</b> <br />Gender: Male <br />Age Group: 21-29<br />Pace: Intermediate (8-9 min/mile)')
+      .openPopup();
+
+      L.marker([30.270, -97.732]).addTo(map)
+      .bindPopup('RunningBuddy User: <b>WendyHsu</b> <br />Gender: Female <br />Age Group: 21-29<br />Pace: Advanced (7-8 min/mile)')
+      .openPopup();
+
+      L.marker([30.278, -97.721]).addTo(map)
+      .bindPopup('RunningBuddy User: <b>IfuAniemeka</b> <br />Gender: Female <br />Age Group: 21-29<br />Pace: Military (6- min/mile)')
+      .openPopup();
+
+
   </script>
+
+   <div id="content" class="clearfix">
+    <section id="left">
+      <div id="userStats" class="clearfix">
+        <div class="pic">
+          <a href="#"><img src="https://avatars3.githubusercontent.com/u/3928580?s=460" width="150" height="150" /></a>
+        </div>
+
+    <div class="data">
+          <h1>Sarmad</h1>
+          <h3>Austin, TX</h3>
+          <!-- <h4><a href="http://spyrestudios.com/">http://spyrestudios.com/</a></h4> -->
+
+
+            <p><li><strong>Location</strong>: In front of MakerSquare Building</li></p>
+             <p><li><strong>Time</strong>: Today @ 8pm</li></p>
+              <p><li><strong>Pace</strong>: Intermediate 8-9 min/mile</li></p>
+          <div class="socialMediaLinks">
+            <a href="http://twitter.com/wndyhsu" rel="me" target="_blank"><img src="img/twitter.png" alt="@wendy" /></a>
+          <!--  <a href="http://gowalla.com/users/" rel="me" target="_blank"><img src="img/gowalla.png" /></a> -->
+          </div>
+        </div>
+      </div>
+
+       <!--  <section id="left">
+      <div id="userStats" class="clearfix">
+        <div class="pic">
+          <a href="/profile"><img src="http://resource.mmgn.com/Gallery/full/Kirby-Ball-1041428.jpg" width="150" height="150" /></a>
+        </div>
+      </div>
+
+
+    <div class="data">
+          <h1>Wendy</h1>
+          <h3>Austin, TX</h3>
+
+            <p><li><strong>Location</strong>: Will be determined</li></p>
+             <p><li><strong>Time</strong>: Wednesday night @ 6pm</li></p>
+              <p><li><strong>Pace</strong>: Beginner 10-12 min/mile</li></p>
+          <div class="socialMediaLinks">
+            <a href="http://twitter.com/wndyhsu" rel="me" target="_blank"><img src="img/twitter.png" alt="@wendy" /></a>
+
+          </div>
+
+          </ul>
+
+
+    </div> -->
+  <div id="content" class="clearfix">
+    <section id="left">
+      <div id="userStats" class="clearfix">
+        <div class="pic">
+          <a href="#"><img src="http://resource.mmgn.com/Gallery/full/Kirby-Ball-1041428.jpg" width="150" height="150" /></a>
+        </div>
+
+    <div class="data">
+          <h1>Wendy</h1>
+          <h3>Austin, TX</h3>
+          <!-- <h4><a href="http://spyrestudios.com/">http://spyrestudios.com/</a></h4> -->
+
+
+         <p><li><strong>Location</strong>: Will be determined</li></p>
+             <p><li><strong>Time</strong>: Wednesday night @ 6pm</li></p>
+              <p><li><strong>Pace</strong>: Beginner 10-12 min/mile</li></p>
+          <div class="socialMediaLinks">
+            <a href="http://twitter.com/wndyhsu" rel="me" target="_blank"><img src="img/twitter.png" alt="@wendy" /></a>
+          </div>
+        </div>
+      </div>
+
 </body>
 </html>
