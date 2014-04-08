@@ -15,7 +15,8 @@ module RunB
 
     def check_circle(name)
       circles = RunB.db.ls_circle
-      circles.find{|circle| circle.name ==name}
+      circles.find{|circle| circle.name == name}
+    end
 
   end
 end

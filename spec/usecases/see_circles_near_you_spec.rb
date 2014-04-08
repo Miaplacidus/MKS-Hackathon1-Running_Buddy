@@ -4,11 +4,10 @@ describe RunB::SeeCirclesNearYou do
   before do
     @db = RunB.db
     @circle = @db.create_circle("Friends", @user.id, @user2.id)
-    @
   end
 
-  it "errors, if circle doesn't exist" do
-    result = subject.run(:circle_id=> )
+  xit "errors, if circle doesn't exist" do
+    result = subject.run(:circle_id => 50)
     expect(result.error).to eq( )
     expect(result.error?).to eq(true)
   end

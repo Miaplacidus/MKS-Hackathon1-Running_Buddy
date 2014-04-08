@@ -2,7 +2,7 @@ module RunB
 
   class SignUp < UseCase
     def run(inputs)
-      user = RunB.db.create_user(inputs[:name], inputs[:password] inputs[:age], input[:email], input[:email], input[:level], input[:buddy_age], input[:buddy_gender])
+      user = RunB.db.create_user(inputs[:name], inputs[:password], inputs[:age], input[:email], input[:email], input[:level], input[:buddy_age], input[:buddy_gender])
       return failure(:username_taken) if check_name(input[:name])
 
       password = inputs[:password]
