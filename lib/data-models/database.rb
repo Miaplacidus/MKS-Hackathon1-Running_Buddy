@@ -21,7 +21,7 @@ module RunB
 # USER METHODS
     def create_user(data_hash)
       new_user = RunB::User.new(data_hash)
-      @sqlite.execute("INSERT INTO users (name, password, age, email, level) VALUES (?,?,?,?,?);", data_hash[:name], data_hash[:password], data_hash[:age], data_hash[:email], data_hash[:level])
+      @sqlite.execute("INSERT INTO users (name, password, age, email, level, gender) VALUES (?,?,?,?,?,?);", data_hash[:name], data_hash[:password], data_hash[:age], data_hash[:email], data_hash[:level], data_hash[:gender])
       new_user.id = @sqlite.execute("SELECT last_insert_rowid()")[0][0]
       new_user
     end
@@ -30,7 +30,7 @@ module RunB
       rows = @sqlite.execute("SELECT * FROM users WHERE id = ?", user_id)
       data = rows.first
 
-      user = RunB::User.new({:username => data[1], :password => data[2], :age => data[3], :email => data[4], :level => data[5]})
+      user = RunB::User.new({:username => data[1], :password => data[2], :age => data[3], :email => data[4], :level => data[5], :gender => data[8]})
       user.id = data[0]
       user
     end
@@ -92,10 +92,10 @@ module RunB
     def create_post(data_hash)
       new_post = RunB::Post.new(data_hash)
 
-      new_pref = self.create_buddy_pref(data_hash)
-      @sqlite.execute("INSERT INTO posts (creator_id, time, location, pace, min_amt, budp_id) VALUES (?,?,?,?,?,?);", data_hash[:creator_id], data_hash[:time], data_hash[:location], data_hash[:pace], data_hash[:min_amt], new_bpref.id)
+      new_bpref = self.create_buddy_pref(data_hash)
+      @sqlite.execute("INSERT INTO posts (creator_id, time, location, pace, min_amt, complete, budp_id) VALUES (?,?,?,?,?,?,?);", data_hash[:creator_id], data_hash[:time], data_hash[:location], data_hash[:pace], data_hash[:min_amt], data_hash[:complete], new_bpref.id)
       new_post.id = @sqlite.execute("SELECT last_insert_rowid()")[0][0]
-      self.update_post({:post_id => new_post.id})
+      self.update_post(new_post.id, {:post_id => new_post.id})
       new_post
     end
 
@@ -275,8 +275,8 @@ module RunB
 
 #BUDDY PREFERENCES
     def create_buddy_pref(data_hash)
-        new_bpref = RunB::BuddyPref.new(data_hash[:age], data_hash[:gender])
-        @sqlite.execute("INSERT INTO buddyprefs (age, gender) VALUES (?, ?);", data_hash[:age], data_hash[:gender])
+        new_bpref = RunB::BuddyPref.new(data_hash[:buddy_age], data_hash[:buddy_gender])
+        @sqlite.execute("INSERT INTO buddyprefs (age, gender) VALUES (?, ?);", data_hash[:buddy_age], data_hash[:buddy_gender])
         new_bpref.id = @sqlite.execute("SELECT last_insert_rowid()")[0][0]
         new_bpref
     end
@@ -291,11 +291,11 @@ module RunB
     end
 
     def update_buddy_pref(bf_id, data_hash)
-      if data_hash[:age]
-          @sqlite.execute("UPDATE buddyprefs SET age = ? WHERE id = ?", data_hash[:age], bf_id)
+      if data_hash[:buddy_age]
+          @sqlite.execute("UPDATE buddyprefs SET age = ? WHERE id = ?", data_hash[:buddy_age], bf_id)
         end
-      if data_hash[:gender]
-        @sqlite.execute("UPDATE buddyprefs SET gender = ? WHERE id = ?", data_hash[:gender], bf_id)
+      if data_hash[:buddy_gender]
+        @sqlite.execute("UPDATE buddyprefs SET gender = ? WHERE id = ?", data_hash[:buddy_gender], bf_id)
       end
       if data_hash[:post_id]
         rows = @sqlite.execute("SELECT * FROM buddyprefs WHERE id = ?", bf_id)
