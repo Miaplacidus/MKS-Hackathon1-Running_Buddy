@@ -4,14 +4,15 @@ describe 'Database' do
   before do
     RunB.db_name = "RunningBuddy"
     @db = RunB.db
-    user1 = @db.create_user("John Doe", "123456", 25, "john@doe.com", 2, 20, "male")
-    user2 = @db.create_user("Jane Smith", "654321", 23, "jane@smith.com", 2, 22, "female")
-    user3 = @db.create_user("Bugs Bunny", "abcdef", 19, "bugs@bunny.com", 2, 25, "male")
+    # user1 = @db.create_user("John Doe", "123456", 25, "john@doe.com", 2, 20, "male")
+    # user2 = @db.create_user("Jane Smith", "654321", 23, "jane@smith.com", 2, 22, "female")
+    # user3 = @db.create_user("Bugs Bunny", "abcdef", 19, "bugs@bunny.com", 2, 25, "male")
   end
 
   describe 'Users' do
     it 'can be created with name, password, age, and retreived' do
-
+      new_user = @db.create_user({name: "Alice", password: "abc123", age: 31, email: "alice@internet.com", level: 2})
+      expect(new_user.name).to eq("Alice")
     end
 
     xit 'can display users history of runs' do
